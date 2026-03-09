@@ -50,6 +50,8 @@ export const PrivateRoute = ({
 	const hasAccess = (): boolean => {
 		if (!user) return false
 
+		// ANY_AUTHENTICATED ('any') grants access to every logged-in user regardless of role.
+		// Otherwise, check that the user's role is in the explicit allowedRoles array.
 		if (allowedRoles === ANY_AUTHENTICATED) return true
 
 		return allowedRoles.includes(user.role)

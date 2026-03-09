@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist_Mono, Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './provider'
 import { SITE_DESCRIPTION, SITE_NAME } from '@/common/constants/seo.constants'
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin']
+const inter = Inter({
+	variable: '--font-inter',
+	subsets: ['latin', 'cyrillic'],
+	weight: ['300', '400', '500', '600', '700', '800']
 })
 
 const geistMono = Geist_Mono({
@@ -25,9 +26,9 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='ua'>
+		<html lang='ua' className='dark'>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} flex flex-col items-center antialiased`}
+				className={`${inter.variable} ${geistMono.variable} flex flex-col items-center antialiased`}
 				suppressHydrationWarning={true}
 			>
 				<Providers>

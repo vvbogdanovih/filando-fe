@@ -1,30 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Filando — Frontend
 
-## Getting Started
+3D printing filament platform. Built with Next.js App Router.
 
-First, run the development server:
+## Setup
 
 ```bash
-yarn dev
+cp .env.example .env   # fill in the values below
+yarn install
+yarn dev               # http://localhost:9000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description | Example |
+|---|---|---|
+| `NEXT_PUBLIC_API_BASE_URL` | Base URL of the backend API (must include `/api`) | `http://localhost:9001/api` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app validates this variable at startup via Zod (`src/env.ts`). A missing or malformed value throws immediately with a descriptive error.
 
-## Learn More
+## Commands
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+yarn dev        # Development server (port 9000)
+yarn build      # Production build
+yarn start      # Start production server
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture & conventions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+See [CLAUDE.md](./CLAUDE.md) for the full stack overview, directory structure, key patterns, and coding conventions.
 
-## Deploy on Vercel
+## Docs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| File | Contents |
+|---|---|
+| [docs/auth-flow.md](./docs/auth-flow.md) | End-to-end auth flows (boot, login, OAuth, logout, token refresh) |
+| [docs/http-service.md](./docs/http-service.md) | HTTP service usage, token refresh deduplication, Zod validation |
