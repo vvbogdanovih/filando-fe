@@ -44,38 +44,24 @@ const ColorBlock = ({
 	className: string
 }) => (
 	<div className='flex flex-col gap-2'>
-		<div className={`h-20 w-full rounded-lg border border-border ${className}`} />
+		<div className={`border-border h-20 w-full rounded-lg border ${className}`} />
 		<div className='space-y-1'>
 			<p className='text-sm font-medium'>{name}</p>
-			<p className='font-mono text-xs text-muted-foreground'>{cssVar}</p>
+			<p className='text-muted-foreground font-mono text-xs'>{cssVar}</p>
 		</div>
 	</div>
 )
 
-const Section = ({
-	title,
-	children
-}: {
-	title: string
-	children: React.ReactNode
-}) => (
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
 	<section className='space-y-6'>
-		<h2 className='border-b border-border pb-2 text-2xl font-bold'>
-			{title}
-		</h2>
+		<h2 className='border-border border-b pb-2 text-2xl font-bold'>{title}</h2>
 		{children}
 	</section>
 )
 
-const SubSection = ({
-	title,
-	children
-}: {
-	title: string
-	children: React.ReactNode
-}) => (
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
 	<div className='space-y-4'>
-		<h3 className='text-lg font-semibold text-muted-foreground'>{title}</h3>
+		<h3 className='text-muted-foreground text-lg font-semibold'>{title}</h3>
 		{children}
 	</div>
 )
@@ -88,16 +74,16 @@ export function StyleGuide() {
 	const [radioValue, setRadioValue] = useState('option1')
 
 	return (
-		<div className='min-h-screen bg-background'>
-			<Header />
+		<div className='bg-background min-h-screen'>
+			
 
-			<main className='container mx-auto space-y-16 px-4 py-12'>
+			<div className='container mx-auto space-y-16 px-4 py-12'>
 				{/* Page Title */}
 				<div className='space-y-4 text-center'>
 					<h1 className='gradient-text text-4xl font-bold'>Style Guide</h1>
-					<p className='mx-auto max-w-2xl text-muted-foreground'>
-						A comprehensive showcase of all UI components and design tokens
-						used throughout the application.
+					<p className='text-muted-foreground mx-auto max-w-2xl'>
+						A comprehensive showcase of all UI components and design tokens used
+						throughout the application.
 					</p>
 				</div>
 
@@ -115,11 +101,7 @@ export function StyleGuide() {
 								cssVar='--foreground'
 								className='bg-foreground'
 							/>
-							<ColorBlock
-								name='Primary'
-								cssVar='--primary'
-								className='bg-primary'
-							/>
+							<ColorBlock name='Primary' cssVar='--primary' className='bg-primary' />
 							<ColorBlock
 								name='Primary Foreground'
 								cssVar='--primary-foreground'
@@ -176,11 +158,7 @@ export function StyleGuide() {
 							<ColorBlock name='Border' cssVar='--border' className='bg-border' />
 							<ColorBlock name='Input' cssVar='--input' className='bg-input' />
 							<ColorBlock name='Ring' cssVar='--ring' className='bg-ring' />
-							<ColorBlock
-								name='Popover'
-								cssVar='--popover'
-								className='bg-popover'
-							/>
+							<ColorBlock name='Popover' cssVar='--popover' className='bg-popover' />
 						</div>
 					</SubSection>
 
@@ -272,7 +250,7 @@ export function StyleGuide() {
 									<Input
 										placeholder='Click to focus...'
 										value={inputValue}
-										onChange={(e) => setInputValue(e.target.value)}
+										onChange={e => setInputValue(e.target.value)}
 									/>
 								</div>
 								<div className='space-y-2'>
@@ -281,7 +259,7 @@ export function StyleGuide() {
 										placeholder='Invalid input'
 										className='border-destructive focus-visible:ring-destructive'
 									/>
-									<p className='text-sm text-destructive'>
+									<p className='text-destructive text-sm'>
 										This field is required
 									</p>
 								</div>
@@ -306,7 +284,7 @@ export function StyleGuide() {
 											type='button'
 											variant='ghost'
 											size='icon'
-											className='absolute right-0 top-0 h-full px-3 hover:bg-transparent'
+											className='absolute top-0 right-0 h-full px-3 hover:bg-transparent'
 											onClick={() => setShowPassword(!showPassword)}
 										>
 											{showPassword ? (
@@ -336,7 +314,7 @@ export function StyleGuide() {
 						<SubSection title='Dropdown Select'>
 							<div className='space-y-4'>
 								<Select>
-									<SelectTrigger className='w-full h-10'>
+									<SelectTrigger className='h-10 w-full'>
 										<SelectValue placeholder='Select a filament type' />
 									</SelectTrigger>
 									<SelectContent position='popper'>
@@ -362,10 +340,7 @@ export function StyleGuide() {
 								</div>
 								<div className='flex items-center space-x-2'>
 									<Checkbox id='check3' disabled />
-									<Label
-										htmlFor='check3'
-										className='text-muted-foreground'
-									>
+									<Label htmlFor='check3' className='text-muted-foreground'>
 										Disabled
 									</Label>
 								</div>
@@ -374,11 +349,8 @@ export function StyleGuide() {
 
 						<SubSection title='Radio Buttons'>
 							<div className='space-y-4'>
-								{['option1', 'option2', 'option3'].map((option) => (
-									<div
-										key={option}
-										className='flex items-center space-x-2'
-									>
+								{['option1', 'option2', 'option3'].map(option => (
+									<div key={option} className='flex items-center space-x-2'>
 										<div
 											className={`h-4 w-4 cursor-pointer rounded-full border-2 transition-colors ${
 												radioValue === option
@@ -389,7 +361,7 @@ export function StyleGuide() {
 										>
 											{radioValue === option && (
 												<div className='flex h-full w-full items-center justify-center'>
-													<div className='h-1.5 w-1.5 rounded-full bg-primary-foreground' />
+													<div className='bg-primary-foreground h-1.5 w-1.5 rounded-full' />
 												</div>
 											)}
 										</div>
@@ -416,10 +388,7 @@ export function StyleGuide() {
 								</div>
 								<div className='flex items-center space-x-2'>
 									<Switch id='switch3' disabled />
-									<Label
-										htmlFor='switch3'
-										className='text-muted-foreground'
-									>
+									<Label htmlFor='switch3' className='text-muted-foreground'>
 										Disabled
 									</Label>
 								</div>
@@ -439,9 +408,9 @@ export function StyleGuide() {
 									max={100}
 									step={1}
 								/>
-								<p className='text-sm text-muted-foreground'>
+								<p className='text-muted-foreground text-sm'>
 									Current value:{' '}
-									<span className='font-mono text-foreground'>
+									<span className='text-foreground font-mono'>
 										{sliderValue[0]}
 									</span>
 								</p>
@@ -450,7 +419,7 @@ export function StyleGuide() {
 
 						<SubSection title='Price Range Example'>
 							<div className='space-y-4'>
-								<div className='flex justify-between text-sm text-muted-foreground'>
+								<div className='text-muted-foreground flex justify-between text-sm'>
 									<span>$0</span>
 									<span>$100</span>
 								</div>
@@ -465,7 +434,7 @@ export function StyleGuide() {
 					<div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
 						<SubSection title='Search Bar'>
 							<div className='relative'>
-								<Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground' />
+								<Search className='text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2' />
 								<Input placeholder='Search products...' className='pl-10' />
 							</div>
 						</SubSection>
@@ -480,9 +449,7 @@ export function StyleGuide() {
 								>
 									<Minus className='h-4 w-4' />
 								</Button>
-								<span className='w-12 text-center font-medium'>
-									{quantity}
-								</span>
+								<span className='w-12 text-center font-medium'>{quantity}</span>
 								<Button
 									variant='outline'
 									size='icon'
@@ -502,12 +469,12 @@ export function StyleGuide() {
 									<Badge variant='destructive'>Destructive</Badge>
 								</div>
 								<div className='flex items-center gap-2'>
-									<span className='text-sm text-muted-foreground'>
+									<span className='text-muted-foreground text-sm'>
 										Notification Badge:
 									</span>
 									<div className='relative'>
 										<Bell className='h-6 w-6' />
-										<span className='absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground'>
+										<span className='bg-destructive text-destructive-foreground absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold'>
 											3
 										</span>
 									</div>
@@ -523,34 +490,28 @@ export function StyleGuide() {
 						<SubSection title='Activity Indicators'>
 							<div className='flex items-center gap-6'>
 								<div className='flex flex-col items-center gap-2'>
-									<Loader2 className='h-8 w-8 animate-spin text-primary' />
-									<span className='text-xs text-muted-foreground'>
-										Spinner
-									</span>
+									<Loader2 className='text-primary h-8 w-8 animate-spin' />
+									<span className='text-muted-foreground text-xs'>Spinner</span>
 								</div>
 								<div className='flex flex-col items-center gap-2'>
 									<div className='flex gap-1'>
-										{[0, 1, 2].map((i) => (
+										{[0, 1, 2].map(i => (
 											<div
 												key={i}
-												className='h-2 w-2 animate-bounce rounded-full bg-primary'
+												className='bg-primary h-2 w-2 animate-bounce rounded-full'
 												style={{
 													animationDelay: `${i * 0.15}s`
 												}}
 											/>
 										))}
 									</div>
-									<span className='text-xs text-muted-foreground'>
-										Dots
-									</span>
+									<span className='text-muted-foreground text-xs'>Dots</span>
 								</div>
 								<div className='flex flex-col items-center gap-2'>
-									<div className='h-1 w-24 overflow-hidden rounded-full bg-secondary'>
-										<div className='h-full w-1/2 animate-pulse rounded-full bg-primary' />
+									<div className='bg-secondary h-1 w-24 overflow-hidden rounded-full'>
+										<div className='bg-primary h-full w-1/2 animate-pulse rounded-full' />
 									</div>
-									<span className='text-xs text-muted-foreground'>
-										Progress
-									</span>
+									<span className='text-muted-foreground text-xs'>Progress</span>
 								</div>
 							</div>
 						</SubSection>
@@ -564,9 +525,8 @@ export function StyleGuide() {
 									</CardDescription>
 								</CardHeader>
 								<CardContent>
-									<p className='text-sm text-muted-foreground'>
-										Hover over this card to see the elevation effect in
-										action.
+									<p className='text-muted-foreground text-sm'>
+										Hover over this card to see the elevation effect in action.
 									</p>
 								</CardContent>
 							</Card>
@@ -581,14 +541,14 @@ export function StyleGuide() {
 									<DialogHeader>
 										<DialogTitle>Sample Modal</DialogTitle>
 										<DialogDescription>
-											This is an example of a modal dialog component.
-											It can contain any content you need.
+											This is an example of a modal dialog component. It can
+											contain any content you need.
 										</DialogDescription>
 									</DialogHeader>
 									<div className='py-4'>
-										<p className='text-sm text-muted-foreground'>
-											Modal content goes here. You can add forms,
-											information, or any other components.
+										<p className='text-muted-foreground text-sm'>
+											Modal content goes here. You can add forms, information,
+											or any other components.
 										</p>
 									</div>
 								</DialogContent>
@@ -606,7 +566,7 @@ export function StyleGuide() {
 								style={{ background: 'var(--gradient-primary)' }}
 							/>
 							<p className='text-sm font-medium'>Primary Gradient</p>
-							<p className='font-mono text-xs text-muted-foreground'>
+							<p className='text-muted-foreground font-mono text-xs'>
 								--gradient-primary
 							</p>
 						</div>
@@ -616,20 +576,18 @@ export function StyleGuide() {
 								style={{ background: 'var(--gradient-accent)' }}
 							/>
 							<p className='text-sm font-medium'>Accent Gradient</p>
-							<p className='font-mono text-xs text-muted-foreground'>
+							<p className='text-muted-foreground font-mono text-xs'>
 								--gradient-accent
 							</p>
 						</div>
 						<div className='space-y-2'>
-							<div className='glow-primary h-24 rounded-lg border border-border bg-card' />
+							<div className='glow-primary border-border bg-card h-24 rounded-lg border' />
 							<p className='text-sm font-medium'>Glow Effect</p>
-							<p className='font-mono text-xs text-muted-foreground'>
-								--shadow-glow
-							</p>
+							<p className='text-muted-foreground font-mono text-xs'>--shadow-glow</p>
 						</div>
 					</div>
 				</Section>
-			</main>
+			</div>
 		</div>
 	)
 }

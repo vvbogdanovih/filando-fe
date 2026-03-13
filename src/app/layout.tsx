@@ -32,9 +32,7 @@ export default function RootLayout({
 				suppressHydrationWarning={true}
 			>
 				<Providers>
-					<main className='flex w-full items-center justify-center'>
-						<div className='w-full max-w-7xl'>{children}</div>
-					</main>
+					<main className='flex w-full items-center justify-center'>{children}</main>
 				</Providers>
 			</body>
 		</html>

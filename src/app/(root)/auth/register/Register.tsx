@@ -27,7 +27,10 @@ export const Register = () => {
 		defaultValues: { name: '', email: '', password: '', confirmPassword: '' }
 	})
 
-	const { register: registerField, formState: { errors } } = form
+	const {
+		register: registerField,
+		formState: { errors }
+	} = form
 
 	return (
 		<AuthForm
@@ -91,7 +94,9 @@ export const Register = () => {
 							error={!!errors.confirmPassword}
 						/>
 						{errors.confirmPassword && (
-							<p className='text-destructive text-sm'>{errors.confirmPassword.message}</p>
+							<p className='text-destructive text-sm'>
+								{errors.confirmPassword.message}
+							</p>
 						)}
 					</div>
 				</>
@@ -99,7 +104,10 @@ export const Register = () => {
 			footer={
 				<p className='text-muted-foreground text-center text-sm'>
 					Вже маєте аккаунт?{' '}
-					<Link href={UI_URLS.AUTH.LOGIN} className='text-primary font-medium hover:underline'>
+					<Link
+						href={UI_URLS.AUTH.LOGIN}
+						className='text-primary font-medium hover:underline'
+					>
 						Увійти
 					</Link>
 				</p>

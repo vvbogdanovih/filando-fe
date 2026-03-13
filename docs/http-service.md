@@ -27,8 +27,8 @@ const data = await httpService.post('/some/endpoint', body, { skipErrorToast: tr
 
 ```ts
 type Config<T = unknown, D = unknown> = AxiosRequestConfig<D> & {
-    schema?: z.ZodType<T>        // Optional Zod schema to validate the response body
-    skipErrorToast?: boolean      // When true, errors are thrown but not shown in a toast
+	schema?: z.ZodType<T> // Optional Zod schema to validate the response body
+	skipErrorToast?: boolean // When true, errors are thrown but not shown in a toast
 }
 ```
 
@@ -62,6 +62,7 @@ The `refreshPromise` variable is reset to `null` in the `.finally()` of every re
 ## Zod validation failure behaviour
 
 If schema validation fails:
+
 - The error message is extracted from `ZodError.issues`.
 - A toast is shown (not suppressed by `skipErrorToast`).
 - An `Error` is thrown, rejecting the caller's promise.

@@ -16,7 +16,10 @@ export const Providers = ({ children }: PropsWithChildren) => {
 	const [ready, setReady] = useState(false)
 
 	useEffect(() => {
-		useAuthStore.getState().checkAuth().finally(() => setReady(true))
+		useAuthStore
+			.getState()
+			.checkAuth()
+			.finally(() => setReady(true))
 	}, [])
 
 	return (

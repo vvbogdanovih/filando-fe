@@ -27,7 +27,10 @@ export const Login = () => {
 		defaultValues: { email: '', password: '' }
 	})
 
-	const { register, formState: { errors } } = form
+	const {
+		register,
+		formState: { errors }
+	} = form
 
 	return (
 		<AuthForm
@@ -70,7 +73,10 @@ export const Login = () => {
 			footer={
 				<p className='text-muted-foreground text-center text-sm'>
 					Немає аккаунта?{' '}
-					<Link href={UI_URLS.AUTH.REGISTER} className='text-primary font-medium hover:underline'>
+					<Link
+						href={UI_URLS.AUTH.REGISTER}
+						className='text-primary font-medium hover:underline'
+					>
 						Зареєструватися
 					</Link>
 				</p>

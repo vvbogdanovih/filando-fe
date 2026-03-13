@@ -12,8 +12,8 @@ yarn dev               # http://localhost:9000
 
 ## Environment variables
 
-| Variable | Description | Example |
-|---|---|---|
+| Variable                   | Description                                       | Example                     |
+| -------------------------- | ------------------------------------------------- | --------------------------- |
 | `NEXT_PUBLIC_API_BASE_URL` | Base URL of the backend API (must include `/api`) | `http://localhost:9001/api` |
 
 The app validates this variable at startup via Zod (`src/env.ts`). A missing or malformed value throws immediately with a descriptive error.
@@ -32,7 +32,7 @@ See [CLAUDE.md](./CLAUDE.md) for the full stack overview, directory structure, k
 
 ## Docs
 
-| File | Contents |
-|---|---|
-| [docs/auth-flow.md](./docs/auth-flow.md) | End-to-end auth flows (boot, login, OAuth, logout, token refresh) |
-| [docs/http-service.md](./docs/http-service.md) | HTTP service usage, token refresh deduplication, Zod validation |
+| File                                           | Contents                                                          |
+| ---------------------------------------------- | ----------------------------------------------------------------- |
+| [docs/auth-flow.md](./docs/auth-flow.md)       | End-to-end auth flows (boot, login, OAuth, logout, token refresh) |
+| [docs/http-service.md](./docs/http-service.md) | HTTP service usage, token refresh deduplication, Zod validation   |

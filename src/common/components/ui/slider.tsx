@@ -19,21 +19,18 @@ function Slider({
 	return (
 		<SliderPrimitive.Root
 			data-slot='slider'
-			className={cn(
-				'relative flex w-full touch-none select-none items-center',
-				className
-			)}
+			className={cn('relative flex w-full touch-none items-center select-none', className)}
 			defaultValue={defaultValue}
 			value={value}
 			{...props}
 		>
 			<SliderPrimitive.Track
 				data-slot='slider-track'
-				className='relative h-2 w-full grow overflow-hidden rounded-full bg-secondary'
+				className='bg-secondary relative h-2 w-full grow overflow-hidden rounded-full'
 			>
 				<SliderPrimitive.Range
 					data-slot='slider-range'
-					className='absolute h-full bg-primary'
+					className='bg-primary absolute h-full'
 				/>
 			</SliderPrimitive.Track>
 			{Array.from({ length: thumbCount }).map((_, i) => (

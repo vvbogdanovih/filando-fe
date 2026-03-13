@@ -48,13 +48,16 @@ export function AuthForm<T extends FieldValues>({
 	fields,
 	footer
 }: AuthFormProps<T>) {
-	const { handleSubmit, formState: { isSubmitting, isValid } } = form
+	const {
+		handleSubmit,
+		formState: { isSubmitting, isValid }
+	} = form
 
 	return (
 		<div className='flex h-screen flex-col items-center justify-center'>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
-				className='flex w-full max-w-sm flex-col gap-4 rounded-xl border shadow-(--shadow-glow) p-10'
+				className='flex w-full max-w-sm flex-col gap-4 rounded-xl border p-10 shadow-(--shadow-glow)'
 			>
 				<div className='text-2xl font-bold'>{title}</div>
 
