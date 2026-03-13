@@ -27,7 +27,7 @@ export function Header() {
 					>
 						Головна
 					</Link>
-					</nav>
+				</nav>
 			</div>
 		</header>
 	)

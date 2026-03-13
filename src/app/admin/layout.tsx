@@ -7,9 +7,9 @@ import { AdminSidebar } from './_components/AdminSidebar'
 export default function Layout({ children }: { children: ReactNode }) {
 	return (
 		<PrivateRoute allowedRoles={[Role.ADMIN]} redirectTo={UI_URLS.HOME}>
-			<div className='bg-foreground flex min-h-screen w-full'>
+			<div className='bg-foreground flex h-screen w-full'>
 				<AdminSidebar />
-				<div className='flex-1 overflow-auto '>{children}</div>
+				<div className='flex-1 overflow-auto'>{children}</div>
 			</div>
 		</PrivateRoute>
 	)

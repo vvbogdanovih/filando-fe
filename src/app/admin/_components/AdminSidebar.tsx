@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { LayoutDashboard, Users, Tag, Palette, LogOut } from 'lucide-react'
 import { useAuthStore } from '@/common/store/useAuthStore'
 import { UI_URLS } from '@/common/constants'
+import { Button } from '@/common/components/ui/button'
 
 const navItems = [
 	{ label: 'Dashboard', href: UI_URLS.ADMIN.BASE, icon: LayoutDashboard },
@@ -51,16 +52,15 @@ export const AdminSidebar = () => {
 
 			<div className='border-t border-gray-200 px-4 py-4'>
 				<div className='mb-3 px-1'>
-					<p className='truncate text-sm font-medium text-gray-900'>{user?.name}</p>
-					<p className='truncate text-xs text-gray-500'>{user?.email}</p>
+					<p className='text-sm font-medium text-gray-900'>{user?.name}</p>
+					<p className='text-xs text-gray-500'>{user?.email}</p>
 				</div>
-				<button
+				<Button
 					onClick={handleLogout}
-					className='flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900'
+					className='flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm'
 				>
-					<LogOut size={16} />
-					Logout
-				</button>
+					<LogOut size={16} /> Logout
+				</Button>
 			</div>
 		</aside>
 	)

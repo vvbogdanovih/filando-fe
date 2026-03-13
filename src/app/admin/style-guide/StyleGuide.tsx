@@ -75,8 +75,6 @@ export function StyleGuide() {
 
 	return (
 		<div className='bg-background min-h-screen'>
-			
-
 			<div className='container mx-auto space-y-16 px-4 py-12'>
 				{/* Page Title */}
 				<div className='space-y-4 text-center'>
