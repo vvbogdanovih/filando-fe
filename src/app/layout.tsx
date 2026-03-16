@@ -26,7 +26,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='ua' className='dark'>
+		<html lang='ua'>
 			<body
 				className={`${inter.variable} ${geistMono.variable} flex flex-col items-center antialiased`}
 				suppressHydrationWarning={true}

@@ -10,5 +10,17 @@ export const API_URLS = {
 		REFRESH: `/auth/refresh`, // POST — refreshes access token via HttpOnly cookie
 		LOGOUT: `/auth/logout`, // POST — clears the session cookie server-side
 		ME: `/auth/me` // GET  — returns current user from active cookie session
+	},
+	CATEGORIES: {
+		WITH_SUBCATEGORIES: `/categories/with-subcategories`, // GET  — full list with embedded subcategory trees
+		BASE: `/categories`, // POST — create category
+		BY_ID: (id: string) => `/categories/${id}`, // GET/PATCH/DELETE
+		SUBCATEGORIES: (catId: string) => `/categories/${catId}/subcategories`, // GET/POST
+		SUBCATEGORY_BY_ID: (catId: string, subId: string) =>
+			`/categories/${catId}/subcategories/${subId}` // GET/PATCH/DELETE
+	},
+	UPLOAD: {
+		PRESIGN: `/upload/presign`, // POST — get presigned S3 URL
+		CONFIRM: `/upload/confirm` // POST — confirm upload
 	}
 }
