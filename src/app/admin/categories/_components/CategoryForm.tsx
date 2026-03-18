@@ -78,7 +78,9 @@ export const CategoryForm = ({ initial, onClose }: CategoryFormProps) => {
 		queryClient.setQueryData<Category[]>(['categories'], prev => {
 			if (!prev) return [updated]
 			const exists = prev.find(c => c._id === updated._id)
-			return exists ? prev.map(c => (c._id === updated._id ? updated : c)) : [...prev, updated]
+			return exists
+				? prev.map(c => (c._id === updated._id ? updated : c))
+				: [...prev, updated]
 		})
 	}
 
@@ -128,7 +130,9 @@ export const CategoryForm = ({ initial, onClose }: CategoryFormProps) => {
 			if (imageState.status === 'pending') {
 				const publicUrl = await runImageUpload(savedCategory._id, imageState.file)
 				if (publicUrl) {
-					savedCategory = await categoriesApi.update(savedCategory._id, { image: publicUrl })
+					savedCategory = await categoriesApi.update(savedCategory._id, {
+						image: publicUrl
+					})
 				}
 				// If publicUrl is null, upload failed — category saved but no image
 				// The error state is already set by runImageUpload
@@ -146,7 +150,13 @@ export const CategoryForm = ({ initial, onClose }: CategoryFormProps) => {
 			}
 		},
 		onError: (err: Error) => {
-			if (err.message.includes('409') || err.message.toLowerCase().includes('conflict') || err.message.toLowerCase().includes('already exists') || err.message.toLowerCase().includes('вже існує') || err.message.toLowerCase().includes('slug')) {
+			if (
+				err.message.includes('409') ||
+				err.message.toLowerCase().includes('conflict') ||
+				err.message.toLowerCase().includes('already exists') ||
+				err.message.toLowerCase().includes('вже існує') ||
+				err.message.toLowerCase().includes('slug')
+			) {
 				handle409Error(err.message)
 			} else {
 				toast.error(err.message || 'Помилка збереження')
@@ -182,7 +192,10 @@ export const CategoryForm = ({ initial, onClose }: CategoryFormProps) => {
 
 			<div className='flex flex-col gap-6 p-6'>
 				{/* Category Form */}
-				<form onSubmit={handleSubmit(vals => saveCategory(vals))} className='flex flex-col gap-4'>
+				<form
+					onSubmit={handleSubmit(vals => saveCategory(vals))}
+					className='flex flex-col gap-4'
+				>
 					{/* Name */}
 					<div className='flex flex-col gap-1.5'>
 						<Label htmlFor='cat-name'>Назва</Label>
@@ -222,7 +235,8 @@ export const CategoryForm = ({ initial, onClose }: CategoryFormProps) => {
 							className='w-32'
 							placeholder='0'
 							{...register('order', {
-								setValueAs: v => (v === '' || v === undefined ? undefined : Number(v))
+								setValueAs: v =>
+									v === '' || v === undefined ? undefined : Number(v)
 							})}
 							aria-invalid={!!errors.order}
 						/>
@@ -307,7 +321,8 @@ export const CategoryForm = ({ initial, onClose }: CategoryFormProps) => {
 										</p>
 										<p className='text-xs text-red-500'>{imageState.message}</p>
 										<p className='mt-1 text-xs text-gray-500'>
-											Категорію збережено успішно, але зображення не завантажено.
+											Категорію збережено успішно, але зображення не
+											завантажено.
 										</p>
 									</div>
 								</div>
@@ -347,7 +362,12 @@ export const CategoryForm = ({ initial, onClose }: CategoryFormProps) => {
 						<Button type='submit' disabled={isPending}>
 							{isPending ? 'Збереження...' : isEditMode ? 'Зберегти' : 'Створити'}
 						</Button>
-						<Button type='button' variant='outline' onClick={onClose} disabled={isPending}>
+						<Button
+							type='button'
+							variant='outline'
+							onClick={onClose}
+							disabled={isPending}
+						>
 							Скасувати
 						</Button>
 					</div>

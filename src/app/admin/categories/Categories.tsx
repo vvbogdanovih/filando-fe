@@ -7,10 +7,7 @@ import { CategoryList } from './_components/CategoryList'
 import { CategoryForm } from './_components/CategoryForm'
 import type { Category } from './categories.schema'
 
-type PanelState =
-	| { mode: 'closed' }
-	| { mode: 'create' }
-	| { mode: 'edit'; category: Category }
+type PanelState = { mode: 'closed' } | { mode: 'create' } | { mode: 'edit'; category: Category }
 
 export const Categories = () => {
 	const [panel, setPanel] = useState<PanelState>({ mode: 'closed' })

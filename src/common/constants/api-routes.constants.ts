@@ -19,6 +19,11 @@ export const API_URLS = {
 		SUBCATEGORY_BY_ID: (catId: string, subId: string) =>
 			`/categories/${catId}/subcategories/${subId}` // GET/PATCH/DELETE
 	},
+	VENDORS: {
+		BASE: `/vendors`, // GET (list all) / POST (create)
+		BY_ID: (id: string) => `/vendors/${id}`, // GET / PATCH / DELETE
+		CHECK_AVAILABILITY: `/vendors/check-availability` // GET ?slug=...
+	},
 	UPLOAD: {
 		PRESIGN: `/upload/presign`, // POST — get presigned S3 URL
 		CONFIRM: `/upload/confirm` // POST — confirm upload

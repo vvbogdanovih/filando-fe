@@ -60,9 +60,12 @@ export const SubcategoryList = ({ category }: SubcategoryListProps) => {
 				prev
 					? prev.map(c =>
 							c._id === category._id
-								? { ...c, subcategories: c.subcategories.filter(s => s._id !== subId) }
+								? {
+										...c,
+										subcategories: c.subcategories.filter(s => s._id !== subId)
+									}
 								: c
-					  )
+						)
 					: []
 			)
 			setDeletingId(null)
@@ -127,7 +130,7 @@ export const SubcategoryList = ({ category }: SubcategoryListProps) => {
 								onClick={() => setDeletingId(sub._id)}
 								title='Видалити'
 							>
-								<Trash2Icon className='size-3.5 text-destructive' />
+								<Trash2Icon className='text-destructive size-3.5' />
 							</Button>
 						</div>
 					</div>

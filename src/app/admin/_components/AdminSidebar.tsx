@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Users, Tag, Palette, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Tag, Palette, LogOut, Store } from 'lucide-react'
 import { useAuthStore } from '@/common/store/useAuthStore'
 import { UI_URLS } from '@/common/constants'
 import { Button } from '@/common/components/ui/button'
@@ -10,6 +10,7 @@ const navItems = [
 	{ label: 'Dashboard', href: UI_URLS.ADMIN.BASE, icon: LayoutDashboard },
 	{ label: 'Users', href: UI_URLS.ADMIN.USERS, icon: Users },
 	{ label: 'Categories', href: UI_URLS.ADMIN.CATEGORIES, icon: Tag },
+	{ label: 'Vendors', href: UI_URLS.ADMIN.VENDORS, icon: Store },
 	{ label: 'Style Guide', href: UI_URLS.ADMIN.STYLE_GUIDE, icon: Palette }
 ]
 

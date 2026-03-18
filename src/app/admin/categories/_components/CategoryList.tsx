@@ -16,12 +16,7 @@ interface CategoryListProps {
 	onCreate: () => void
 }
 
-export const CategoryList = ({
-	categories,
-	selectedId,
-	onSelect,
-	onCreate
-}: CategoryListProps) => {
+export const CategoryList = ({ categories, selectedId, onSelect, onCreate }: CategoryListProps) => {
 	const queryClient = useQueryClient()
 	const [deletingId, setDeletingId] = useState<string | null>(null)
 
@@ -79,13 +74,17 @@ export const CategoryList = ({
 
 						{/* Info */}
 						<div className='min-w-0 flex-1'>
-							<p className='truncate text-sm font-medium text-gray-900'>{category.name}</p>
+							<p className='truncate text-sm font-medium text-gray-900'>
+								{category.name}
+							</p>
 							<p className='truncate text-xs text-gray-400'>{category.slug}</p>
 							<div className='mt-1 flex items-center gap-2'>
 								<Badge variant='secondary' className='text-xs'>
 									{category.subcategories.length} підкат.
 								</Badge>
-								<span className='text-xs text-gray-400'>order: {category.order}</span>
+								<span className='text-xs text-gray-400'>
+									order: {category.order}
+								</span>
 							</div>
 						</div>
 
@@ -105,7 +104,7 @@ export const CategoryList = ({
 								onClick={() => setDeletingId(category._id)}
 								title='Видалити'
 							>
-								<Trash2Icon className='size-3.5 text-destructive' />
+								<Trash2Icon className='text-destructive size-3.5' />
 							</Button>
 						</div>
 					</div>

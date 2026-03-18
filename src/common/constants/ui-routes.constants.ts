@@ -10,6 +10,7 @@ export const UI_URLS = {
 	ADMIN: {
 		BASE: '/admin',
 		CATEGORIES: '/admin/categories',
+		VENDORS: '/admin/vendors',
 		USERS: '/admin/users',
 		STYLE_GUIDE: '/admin/style-guide'
 	}

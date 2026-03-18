@@ -71,11 +71,7 @@ export const categoriesApi = {
 	 * Returns the public URL to PATCH onto the category.
 	 * On 403 from S3 PUT, re-requests presign once and retries.
 	 */
-	uploadImage: async (
-		categoryId: string,
-		file: File,
-		retrying = false
-	): Promise<string> => {
+	uploadImage: async (categoryId: string, file: File, retrying = false): Promise<string> => {
 		const contentType = file.type as 'image/webp' | 'image/jpeg' | 'image/png'
 
 		const presignResponse = await categoriesApi.presignUpload({

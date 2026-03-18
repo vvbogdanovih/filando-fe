@@ -21,7 +21,11 @@ import {
 	DialogTitle,
 	DialogFooter
 } from '@/common/components/ui/dialog'
-import { subcategoryFormSchema, type SubcategoryFormValues, type Subcategory } from '../categories.schema'
+import {
+	subcategoryFormSchema,
+	type SubcategoryFormValues,
+	type Subcategory
+} from '../categories.schema'
 
 interface SubcategoryFormProps {
 	open: boolean
@@ -83,7 +87,9 @@ export const SubcategoryForm = ({
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className='max-h-[90vh] overflow-y-auto sm:max-w-lg'>
 				<DialogHeader>
-					<DialogTitle>{initial ? 'Редагувати підкатегорію' : 'Нова підкатегорія'}</DialogTitle>
+					<DialogTitle>
+						{initial ? 'Редагувати підкатегорію' : 'Нова підкатегорія'}
+					</DialogTitle>
 				</DialogHeader>
 
 				<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
@@ -96,7 +102,9 @@ export const SubcategoryForm = ({
 							{...register('name')}
 							aria-invalid={!!errors.name}
 						/>
-						{errors.name && <p className='text-destructive text-xs'>{errors.name.message}</p>}
+						{errors.name && (
+							<p className='text-destructive text-xs'>{errors.name.message}</p>
+						)}
 					</div>
 
 					{/* Slug */}
@@ -108,7 +116,9 @@ export const SubcategoryForm = ({
 							{...register('slug')}
 							aria-invalid={!!errors.slug}
 						/>
-						{errors.slug && <p className='text-destructive text-xs'>{errors.slug.message}</p>}
+						{errors.slug && (
+							<p className='text-destructive text-xs'>{errors.slug.message}</p>
+						)}
 					</div>
 
 					{/* Required attributes */}
@@ -119,7 +129,9 @@ export const SubcategoryForm = ({
 								type='button'
 								size='xs'
 								variant='outline'
-								onClick={() => append({ label: '', filter_type: 'multi-select', unit: null })}
+								onClick={() =>
+									append({ label: '', filter_type: 'multi-select', unit: null })
+								}
 							>
 								<PlusIcon className='size-3' />
 								Додати
@@ -145,7 +157,7 @@ export const SubcategoryForm = ({
 										variant='ghost'
 										onClick={() => remove(index)}
 									>
-										<Trash2Icon className='size-3 text-destructive' />
+										<Trash2Icon className='text-destructive size-3' />
 									</Button>
 								</div>
 
@@ -159,7 +171,9 @@ export const SubcategoryForm = ({
 											id={`attr-label-${index}`}
 											placeholder='Наприклад: Виробник'
 											{...register(`required_attributes.${index}.label`)}
-											aria-invalid={!!errors.required_attributes?.[index]?.label}
+											aria-invalid={
+												!!errors.required_attributes?.[index]?.label
+											}
 										/>
 										{errors.required_attributes?.[index]?.label && (
 											<p className='text-destructive text-xs'>
@@ -173,7 +187,9 @@ export const SubcategoryForm = ({
 										<div className='flex flex-1 flex-col gap-1'>
 											<Label className='text-xs'>Тип фільтру</Label>
 											<Select
-												value={watch(`required_attributes.${index}.filter_type`)}
+												value={watch(
+													`required_attributes.${index}.filter_type`
+												)}
 												onValueChange={val =>
 													setValue(
 														`required_attributes.${index}.filter_type`,
@@ -186,7 +202,9 @@ export const SubcategoryForm = ({
 													<SelectValue />
 												</SelectTrigger>
 												<SelectContent>
-													<SelectItem value='multi-select'>multi-select</SelectItem>
+													<SelectItem value='multi-select'>
+														multi-select
+													</SelectItem>
 													<SelectItem value='range'>range</SelectItem>
 												</SelectContent>
 											</Select>
