@@ -3,7 +3,7 @@ import { z } from 'zod'
 // --- Response schemas (include server-computed fields) ---
 
 export const requiredAttributeSchema = z.object({
-	attr_id: z.string(),
+	key: z.string(),
 	label: z.string(),
 	filter_type: z.enum(['multi-select', 'range']),
 	unit: z.string().nullable()

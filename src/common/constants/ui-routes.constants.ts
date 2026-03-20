@@ -12,6 +12,8 @@ export const UI_URLS = {
 		CATEGORIES: '/admin/categories',
 		VENDORS: '/admin/vendors',
 		USERS: '/admin/users',
+		PRODUCTS: '/admin/products',
+		CREATE_PRODUCT: '/admin/products/create',
 		STYLE_GUIDE: '/admin/style-guide'
 	}
 }

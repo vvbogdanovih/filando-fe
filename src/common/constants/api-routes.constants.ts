@@ -27,5 +27,10 @@ export const API_URLS = {
 	UPLOAD: {
 		PRESIGN: `/upload/presign`, // POST — get presigned S3 URL
 		CONFIRM: `/upload/confirm` // POST — confirm upload
+	},
+	PRODUCTS: {
+		BASE: `/products`, // GET (list) / POST (create)
+		BY_ID: (id: string) => `/products/${id}`, // PATCH / DELETE
+		VALIDATE: `/products/validate` // POST — check slug + SKU uniqueness before create
 	}
 }
