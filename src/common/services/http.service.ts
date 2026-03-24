@@ -120,7 +120,7 @@ export class HttpService {
 	// Uses native fetch instead of apiClient (Axios) to avoid triggering the response
 	// interceptor again, which would cause an infinite 401 → refresh → 401 loop.
 	static async refreshToken(): Promise<boolean> {
-		const { setUser } = useAuthStore.getState()
+		const { setUser, logOut } = useAuthStore.getState()
 
 		const res = await fetch(API_BASE_URL + API_URLS.AUTH.REFRESH, {
 			method: 'POST',
@@ -132,11 +132,7 @@ export class HttpService {
 		})
 
 		if (!res.ok) {
-			// Do NOT call logOut() here: it hits /auth/logout which clears cookies for
-			// all tabs. If another tab already rotated the token (race condition), calling
-			// logOut() would wipe the new cookie that the other tab just received.
-			// Instead, just clear client-side state and let the user re-authenticate.
-			setUser(null)
+			await logOut()
 			return false
 		}
 

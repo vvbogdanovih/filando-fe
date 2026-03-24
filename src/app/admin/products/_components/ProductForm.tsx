@@ -77,6 +77,19 @@ export const ProductForm = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [watchedHasVariants])
 
+	// Sync the first variant's v_value with the variant-type attribute's current value.
+	// This keeps them in lock-step: selecting a different attribute or editing its value
+	// is instantly reflected in the first variant card.
+	const variantTypeAttrValue = watchedVariantTypeKey
+		? (watchedAttributes.find(a => a.k === watchedVariantTypeKey)?.v ?? null)
+		: null
+
+	useEffect(() => {
+		if (!watchedHasVariants || !watchedVariantTypeKey || variantTypeAttrValue === null) return
+		setValue('variants.0.v_value', String(variantTypeAttrValue))
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [variantTypeAttrValue, watchedVariantTypeKey, watchedHasVariants])
+
 	// Fetch categories to resolve required attributes for the selected subcategory
 	const { data: categories = [] } = useQuery({
 		queryKey: ['categories'],
@@ -89,18 +102,19 @@ export const ProductForm = () => {
 
 	const requiredAttrs = selectedSubcategory?.required_attributes ?? []
 
-	// When subcategory changes, re-seed required attributes in the field array
+	// When subcategory changes, re-seed required attributes while preserving custom ones
 	useEffect(() => {
 		if (!selectedSubcategoryId) return
 
-		// Remove all existing attributes and re-add required ones as stubs
-		attributesFieldArray.replace(
-			requiredAttrs.map(attr => ({
-				k: toSlug(attr.label),
-				l: attr.label,
-				v: ''
-			}))
-		)
+		const requiredKeys = new Set(requiredAttrs.map(attr => toSlug(attr.label)))
+		const currentCustomAttrs = attributesFieldArray.fields
+			.filter(f => !requiredKeys.has(f.k))
+			.map(({ k, l, v }) => ({ k, l, v }))
+
+		attributesFieldArray.replace([
+			...requiredAttrs.map(attr => ({ k: toSlug(attr.label), l: attr.label, v: '' })),
+			...currentCustomAttrs
+		])
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedSubcategoryId])
 
@@ -135,26 +149,25 @@ export const ProductForm = () => {
 		}))
 
 		try {
-			const { errors: validationErrors } = await productsApi.validate({
-				variants: variantSlugsAndSkus
+			const { slugs: takenSlugs, skus: takenSkus } = await productsApi.validate({
+				slugs: variantSlugsAndSkus.map(v => v.slug),
+				skus: variantSlugsAndSkus.map(v => v.sku)
 			})
 
-			const conflictIndexes = Object.keys(validationErrors)
-			if (conflictIndexes.length > 0) {
-				conflictIndexes.forEach(idx => {
-					const i = Number(idx)
-					const err = validationErrors[idx]
-					if (err.slug) {
-						setError(`variants.${i}.v_value`, {
-							message: `Slug "${variantSlugsAndSkus[i].slug}" вже зайнятий`
-						})
-					}
-					if (err.sku) {
-						setError(`variants.${i}.sku`, { message: 'Цей SKU вже використовується' })
-					}
-				})
-				return
-			}
+			let hasConflict = false
+			variantSlugsAndSkus.forEach(({ slug, sku }, i) => {
+				if (takenSlugs.includes(slug)) {
+					setError(`variants.${i}.v_value`, {
+						message: `Slug "${slug}" вже зайнятий`
+					})
+					hasConflict = true
+				}
+				if (takenSkus.includes(sku)) {
+					setError(`variants.${i}.sku`, { message: 'Цей SKU вже використовується' })
+					hasConflict = true
+				}
+			})
+			if (hasConflict) return
 		} catch {
 			// If validate endpoint isn't available yet, proceed with submission
 		}
@@ -231,6 +244,7 @@ export const ProductForm = () => {
 				fieldArray={variantsFieldArray}
 				hasVariants={watchedHasVariants}
 				variantTypeKey={watchedVariantTypeKey}
+				isFirstVariantLocked={watchedHasVariants && !!watchedVariantTypeKey}
 				productName={watchedName}
 				attributes={watchedAttributes}
 				variantImageUploads={variantImageUploads}

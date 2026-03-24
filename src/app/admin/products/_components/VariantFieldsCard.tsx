@@ -15,6 +15,8 @@ interface VariantFieldsCardProps {
 	register: UseFormRegister<ProductFormValues>
 	errors: FieldErrors<ProductFormValues>
 	hasVariants: boolean
+	/** When true, the v_value field is read-only — its value is synced from the attribute */
+	isVValueLocked?: boolean
 	productName: string
 	imageUploads: ImageUploadItem[]
 	onImagesChange: (images: ImageUploadItem[]) => void
@@ -28,6 +30,7 @@ export const VariantFieldsCard = ({
 	register,
 	errors,
 	hasVariants,
+	isVValueLocked,
 	productName,
 	imageUploads,
 	onImagesChange,
@@ -63,8 +66,15 @@ export const VariantFieldsCard = ({
 						id={`v_value_${index}`}
 						placeholder='Наприклад: Чорний'
 						{...register(`variants.${index}.v_value`)}
+						readOnly={isVValueLocked}
+						className={isVValueLocked ? 'bg-gray-50 text-gray-500' : undefined}
 						aria-invalid={!!variantErrors?.v_value}
 					/>
+					{isVValueLocked && (
+						<p className='text-muted-foreground text-xs'>
+							Значення береться з атрибута продукту і не може бути змінено тут.
+						</p>
+					)}
 					{variantErrors?.v_value && (
 						<p className='text-destructive text-xs'>{variantErrors.v_value.message}</p>
 					)}

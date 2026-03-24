@@ -30,7 +30,10 @@ export const API_URLS = {
 	},
 	PRODUCTS: {
 		BASE: `/products`, // GET (list) / POST (create)
-		BY_ID: (id: string) => `/products/${id}`, // PATCH / DELETE
-		VALIDATE: `/products/validate` // POST — check slug + SKU uniqueness before create
+		BY_ID: (id: string) => `/products/${id}`, // GET / PATCH / DELETE
+		VALIDATE: `/products/validate`, // POST — check slug + SKU uniqueness before create
+		VARIANTS: (id: string) => `/products/${id}/variants`, // GET (list) / POST (add variant)
+		VARIANT_BY_ID: (id: string, variantId: string) => `/products/${id}/variants/${variantId}`, // GET / PATCH / DELETE
+		VARIANT_IMAGES: (id: string, variantId: string) => `/products/${id}/variants/${variantId}/images` // PATCH — set variant images
 	}
 }

@@ -28,6 +28,8 @@ interface VariantsBlockProps {
 	fieldArray: UseFieldArrayReturn<ProductFormValues, 'variants'>
 	hasVariants: boolean
 	variantTypeKey: string | null
+	/** When true, the first variant card's v_value is locked (synced from the attribute) */
+	isFirstVariantLocked?: boolean
 	productName: string
 	attributes: AttributeItem[]
 	variantImageUploads: ImageUploadItem[][]
@@ -43,6 +45,7 @@ export const VariantsBlock = ({
 	fieldArray,
 	hasVariants,
 	variantTypeKey,
+	isFirstVariantLocked,
 	productName,
 	attributes,
 	variantImageUploads,
@@ -123,6 +126,7 @@ export const VariantsBlock = ({
 						register={register}
 						errors={errors}
 						hasVariants={hasVariants}
+						isVValueLocked={index === 0 && !!isFirstVariantLocked}
 						productName={productName}
 						imageUploads={variantImageUploads[index] ?? []}
 						onImagesChange={imgs => onImagesChange(index, imgs)}

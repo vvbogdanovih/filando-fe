@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Controller, type Control, type FieldErrors, type UseFormSetValue } from 'react-hook-form'
 import { useQuery } from '@tanstack/react-query'
 import { Label } from '@/common/components/ui/label'
@@ -21,6 +21,8 @@ interface CategoryBlockProps {
 	setValue: UseFormSetValue<ProductFormValues>
 	watchCategoryId: string
 	onSubcategoryChange?: (subcategoryId: string) => void
+	/** When true, skip the subcategory reset on first mount (used by edit forms) */
+	preventFirstReset?: boolean
 }
 
 export const CategoryBlock = ({
@@ -28,7 +30,8 @@ export const CategoryBlock = ({
 	errors,
 	setValue,
 	watchCategoryId,
-	onSubcategoryChange
+	onSubcategoryChange,
+	preventFirstReset
 }: CategoryBlockProps) => {
 	const { data: categories = [], isLoading } = useQuery({
 		queryKey: ['categories'],
@@ -43,11 +46,18 @@ export const CategoryBlock = ({
 	const selectedCategory = categories.find(c => c._id === watchCategoryId)
 	const subcategories = selectedCategory?.subcategories ?? []
 
-	// Reset subcategory when category changes
+	// Skip the subcategory reset on first mount when preventFirstReset is true (edit form)
+	const skipNextReset = useRef(preventFirstReset ?? false)
+
 	useEffect(() => {
+		if (skipNextReset.current) {
+			skipNextReset.current = false
+			return
+		}
 		setValue('subcategory_id', '')
 		onSubcategoryChange?.('')
-	}, [watchCategoryId, setValue, onSubcategoryChange])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [watchCategoryId])
 
 	return (
 		<section className='flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6'>

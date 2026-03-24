@@ -24,7 +24,7 @@ export const variantFormItemSchema = z.object({
 	images: z.array(z.string()) // public URLs, populated after upload
 })
 
-// --- Main product form schema ---
+// --- Main product form schema (create) ---
 
 export const productFormSchema = z
 	.object({
@@ -58,6 +58,34 @@ export const productFormSchema = z
 		}
 	})
 
+// --- Product edit form schema ---
+
+export const productEditFormSchema = z.object({
+	name: z.string().min(1, 'Назва продукту є обов\'язковою'),
+	vendor_id: z.string().min(1, 'Оберіть вендора'),
+	category_id: z.string().min(1, 'Оберіть категорію'),
+	subcategory_id: z.string().min(1, 'Оберіть підкатегорію'),
+	attributes: z.array(attributeItemSchema),
+	variant_type_key: z.string().nullable()
+})
+
+// --- Variant add/edit form schema ---
+
+export const variantEditFormSchema = z.object({
+	v_value: z.string().nullable(),
+	sku: z.string().min(1, 'SKU є обов\'язковим'),
+	price: z
+		.string()
+		.min(1, 'Ціна є обов\'язковою')
+		.refine(v => !isNaN(Number(v)) && Number(v) >= 0, 'Введіть коректну ціну'),
+	stock: z
+		.string()
+		.min(1, 'Кількість є обов\'язковою')
+		.refine(v => !isNaN(Number(v)) && Number(v) >= 0, 'Введіть коректну кількість'),
+	status: z.enum(['draft', 'active', 'archived']),
+	vendor_product_sku: z.string().optional()
+})
+
 // --- API response schemas ---
 
 export const productVariantResponseSchema = z.object({
@@ -69,10 +97,30 @@ export const productVariantResponseSchema = z.object({
 	images: z.array(z.string())
 })
 
+// Full variant response — returned by GET /products/:id/variants
+export const productVariantFullResponseSchema = z.object({
+	_id: z.string(),
+	product_id: z.string(),
+	subcategory_id: z.string(),
+	name: z.string(),
+	slug: z.string(),
+	sku: z.string(),
+	price: z.number(),
+	stock: z.number(),
+	images: z.array(z.string()),
+	v_value: z.string().nullable(),
+	vendor_product_sku: z.string().optional(),
+	status: z.enum(['draft', 'active', 'archived']),
+	createdAt: z.string(),
+	updatedAt: z.string()
+})
+
+export const productVariantsListResponseSchema = z.array(productVariantFullResponseSchema)
+
 export const productResponseSchema = z.object({
 	_id: z.string(),
 	name: z.string(),
-	slug: z.string(),
+	vendor_id: z.string().optional(),
 	category_id: z.string(),
 	subcategory_id: z.string(),
 	description: z
@@ -80,27 +128,64 @@ export const productResponseSchema = z.object({
 			json: z.record(z.string(), z.unknown()),
 			html: z.string()
 		})
-		.nullable(),
+		.nullish(),
 	attributes: z.array(attributeItemSchema),
 	variant_type: z
 		.object({
 			key: z.string(),
 			label: z.string()
 		})
-		.nullable(),
+		.nullish(),
 	variants: z.array(productVariantResponseSchema),
 	createdAt: z.string(),
 	updatedAt: z.string()
 })
 
-export const validateResponseSchema = z.object({
-	errors: z.record(
-		z.string(), // variant index as string key
-		z.object({
-			slug: z.string().optional(),
-			sku: z.string().optional()
+// Product detail — returned by GET /products/:id (no variants)
+export const productDetailSchema = z.object({
+	_id: z.string(),
+	name: z.string(),
+	vendor_id: z.string(),
+	category_id: z.string(),
+	subcategory_id: z.string(),
+	description: z
+		.object({
+			json: z.record(z.string(), z.unknown()),
+			html: z.string()
 		})
-	)
+		.nullish(),
+	attributes: z.array(attributeItemSchema),
+	variant_type: z
+		.object({
+			key: z.string(),
+			label: z.string()
+		})
+		.nullish(),
+	createdAt: z.string(),
+	updatedAt: z.string()
+})
+
+// Product list item — returned by GET /products
+export const productListItemSchema = z.object({
+	_id: z.string(),
+	name: z.string(),
+	vendor_id: z.string().optional(),
+	category_id: z.string(),
+	subcategory_id: z.string(),
+	attributes: z.array(attributeItemSchema),
+	variant_type: z
+		.object({
+			key: z.string(),
+			label: z.string()
+		})
+		.nullish(),
+	createdAt: z.string(),
+	updatedAt: z.string()
+})
+
+export const validateResponseSchema = z.object({
+	slugs: z.array(z.string()), // slugs that are already taken
+	skus: z.array(z.string()) // skus that are already taken
 })
 
 // --- Types ---
@@ -108,6 +193,11 @@ export const validateResponseSchema = z.object({
 export type AttributeItem = z.infer<typeof attributeItemSchema>
 export type VariantFormItem = z.infer<typeof variantFormItemSchema>
 export type ProductFormValues = z.infer<typeof productFormSchema>
+export type ProductEditFormValues = z.infer<typeof productEditFormSchema>
+export type VariantEditFormValues = z.infer<typeof variantEditFormSchema>
 export type Product = z.infer<typeof productResponseSchema>
+export type ProductDetail = z.infer<typeof productDetailSchema>
+export type ProductListItem = z.infer<typeof productListItemSchema>
 export type ProductVariant = z.infer<typeof productVariantResponseSchema>
+export type ProductVariantFull = z.infer<typeof productVariantFullResponseSchema>
 export type ValidateResponse = z.infer<typeof validateResponseSchema>

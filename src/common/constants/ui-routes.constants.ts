@@ -14,6 +14,7 @@ export const UI_URLS = {
 		USERS: '/admin/users',
 		PRODUCTS: '/admin/products',
 		CREATE_PRODUCT: '/admin/products/create',
+		EDIT_PRODUCT: (id: string) => `/admin/products/${id}/edit`,
 		STYLE_GUIDE: '/admin/style-guide'
 	}
 }
