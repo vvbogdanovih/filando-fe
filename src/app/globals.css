@@ -118,6 +118,12 @@
 	}
 	body {
 		@apply bg-background text-foreground font-sans antialiased;
+		background-image: radial-gradient(
+			circle,
+			color-mix(in srgb, var(--foreground) 15%, transparent) 1px,
+			transparent 1px
+		);
+		background-size: 24px 24px;
 	}
 }
 

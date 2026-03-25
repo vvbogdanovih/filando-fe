@@ -1,6 +1,9 @@
 export const UI_URLS = {
 	HOME: '/',
 	NOT_FOUND: '/404',
+	CATALOG: {
+		FILAMENT: '/vytratni-materialy-dlia-3d-druku/filament',
+	},
 	AUTH: {
 		BASE: '/auth',
 		LOGIN: '/auth/login',
