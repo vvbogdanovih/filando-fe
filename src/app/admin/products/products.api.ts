@@ -25,10 +25,10 @@ interface CreateProductPayload {
 	variant_type: { key: string; label: string } | null
 	variants: Array<{
 		v_value: string | null
-		sku: string
 		price: number
 		stock: number
 		images: string[]
+		vendor_product_sku?: string
 	}>
 }
 
@@ -53,7 +53,6 @@ interface UpdateProductMetadataPayload {
 }
 
 interface AddVariantPayload {
-	sku: string
 	price: number
 	v_value?: string | null
 	stock?: number

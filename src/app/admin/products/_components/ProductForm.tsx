@@ -19,7 +19,7 @@ import { productsApi } from '../products.api'
 import { productFormSchema, type ProductFormValues } from '../products.schema'
 import { categoriesApi } from '../../categories/categories.api'
 
-const DEFAULT_VARIANT = { v_value: null, sku: '', price: '', stock: '', images: [] }
+const DEFAULT_VARIANT = { v_value: null, price: '', stock: '', images: [], vendor_product_sku: '' }
 
 export const ProductForm = () => {
 	const router = useRouter()
@@ -127,7 +127,7 @@ export const ProductForm = () => {
 	}, [])
 
 	const handleAddVariant = useCallback(() => {
-		variantsFieldArray.append({ v_value: '', sku: '', price: '', stock: '', images: [] })
+		variantsFieldArray.append({ v_value: '', price: '', stock: '', images: [], vendor_product_sku: '' })
 		setVariantImageUploads(prev => [...prev, []])
 	}, [variantsFieldArray])
 
@@ -195,10 +195,10 @@ export const ProductForm = () => {
 			variant_type: variantType,
 			variants: values.variants.map(v => ({
 				v_value: values.has_variants ? (v.v_value ?? null) : null,
-				sku: v.sku,
 				price: Number(v.price),
 				stock: Number(v.stock),
-				images: []
+				images: [],
+				vendor_product_sku: v.vendor_product_sku || undefined
 			}))
 		}
 

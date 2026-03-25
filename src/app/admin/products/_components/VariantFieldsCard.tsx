@@ -49,7 +49,7 @@ export const VariantFieldsCard = ({
 			{/* Card header */}
 			<div className='flex items-center justify-between'>
 				<h3 className='text-sm font-semibold text-gray-900'>
-					{hasVariants ? `Варіант ${index + 1}` : 'SKU, Ціна та Наявність'}
+					{hasVariants ? `Варіант ${index + 1}` : 'Ціна та Наявність'}
 				</h3>
 				{hasVariants && canRemove && (
 					<Button type='button' size='icon-sm' variant='ghost' onClick={onRemove}>
@@ -84,21 +84,8 @@ export const VariantFieldsCard = ({
 				</div>
 			)}
 
-			{/* SKU / Price / Stock */}
+			{/* Price / Stock */}
 			<div className='flex gap-4'>
-				<div className='flex flex-1 flex-col gap-1.5'>
-					<Label htmlFor={`sku_${index}`}>SKU</Label>
-					<Input
-						id={`sku_${index}`}
-						placeholder='FIL-001'
-						{...register(`variants.${index}.sku`)}
-						aria-invalid={!!variantErrors?.sku}
-					/>
-					{variantErrors?.sku && (
-						<p className='text-destructive text-xs'>{variantErrors.sku.message}</p>
-					)}
-				</div>
-
 				<div className='flex flex-1 flex-col gap-1.5'>
 					<Label htmlFor={`price_${index}`}>Ціна (₴)</Label>
 					<Input
@@ -129,6 +116,15 @@ export const VariantFieldsCard = ({
 					{variantErrors?.stock && (
 						<p className='text-destructive text-xs'>{variantErrors.stock.message}</p>
 					)}
+				</div>
+
+				<div className='flex flex-1 flex-col gap-1.5'>
+					<Label htmlFor={`vendor_product_sku_${index}`}>Артикул вендора</Label>
+					<Input
+						id={`vendor_product_sku_${index}`}
+						placeholder="Необов'язково"
+						{...register(`variants.${index}.vendor_product_sku`)}
+					/>
 				</div>
 			</div>
 

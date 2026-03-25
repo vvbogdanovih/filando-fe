@@ -14,6 +14,7 @@ import {
 import { Input } from '@/common/components/ui/input'
 import { Label } from '@/common/components/ui/label'
 import { Button } from '@/common/components/ui/button'
+import { Badge } from '@/common/components/ui/badge'
 import {
 	Select,
 	SelectContent,
@@ -78,7 +79,6 @@ export const VariantModal = ({
 
 		if (isEdit && variant) {
 			reset({
-				sku: variant.sku,
 				price: String(variant.price),
 				stock: String(variant.stock),
 				v_value: variant.v_value,
@@ -94,7 +94,6 @@ export const VariantModal = ({
 			)
 		} else {
 			reset({
-				sku: '',
 				price: '',
 				stock: '0',
 				// Seed v_value from the product attribute when adding the first variant
@@ -138,7 +137,6 @@ export const VariantModal = ({
 			const images = await buildImageUrls()
 
 			const payload = {
-				sku: values.sku,
 				price: Number(values.price),
 				stock: Number(values.stock),
 				v_value: hasVariants ? (values.v_value ?? null) : null,
@@ -169,6 +167,16 @@ export const VariantModal = ({
 				</DialogHeader>
 
 				<form onSubmit={onSubmit} className='flex flex-col gap-4'>
+					{/* Auto-generated SKU — read-only, only visible when editing */}
+					{isEdit && variant && (
+						<div className='flex items-center gap-2'>
+							<span className='text-xs text-gray-500'>SKU:</span>
+							<Badge variant='outline' className='font-mono text-xs'>
+								{variant.sku}
+							</Badge>
+						</div>
+					)}
+
 					{/* Variant value — only for products with variants */}
 					{hasVariants && (
 						<div className='flex flex-col gap-1.5'>
@@ -192,21 +200,8 @@ export const VariantModal = ({
 						</div>
 					)}
 
-					{/* SKU / Price / Stock */}
+					{/* Price / Stock */}
 					<div className='flex gap-3'>
-						<div className='flex flex-1 flex-col gap-1.5'>
-							<Label htmlFor='sku'>SKU</Label>
-							<Input
-								id='sku'
-								placeholder='FIL-001'
-								{...register('sku')}
-								aria-invalid={!!errors.sku}
-							/>
-							{errors.sku && (
-								<p className='text-destructive text-xs'>{errors.sku.message}</p>
-							)}
-						</div>
-
 						<div className='flex flex-1 flex-col gap-1.5'>
 							<Label htmlFor='price'>Ціна (₴)</Label>
 							<Input
@@ -263,10 +258,10 @@ export const VariantModal = ({
 
 					{/* Vendor Product SKU */}
 					<div className='flex flex-col gap-1.5'>
-						<Label htmlFor='vendor_product_sku'>SKU вендора (необов'язково)</Label>
+						<Label htmlFor='vendor_product_sku'>Артикул вендора (необов'язково)</Label>
 						<Input
 							id='vendor_product_sku'
-							placeholder='Vendor-SKU-001'
+							placeholder='Артикул у системі вендора'
 							{...register('vendor_product_sku')}
 						/>
 					</div>

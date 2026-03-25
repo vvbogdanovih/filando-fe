@@ -12,7 +12,6 @@ export const attributeItemSchema = z.object({
 
 export const variantFormItemSchema = z.object({
 	v_value: z.string().nullable(),
-	sku: z.string().min(1, 'SKU є обов\'язковим'),
 	price: z
 		.string()
 		.min(1, 'Ціна є обов\'язковою')
@@ -21,7 +20,8 @@ export const variantFormItemSchema = z.object({
 		.string()
 		.min(1, 'Кількість є обов\'язковою')
 		.refine(v => !isNaN(Number(v)) && Number(v) >= 0, 'Введіть коректну кількість'),
-	images: z.array(z.string()) // public URLs, populated after upload
+	images: z.array(z.string()), // public URLs, populated after upload
+	vendor_product_sku: z.string().optional()
 })
 
 // --- Main product form schema (create) ---
@@ -73,7 +73,6 @@ export const productEditFormSchema = z.object({
 
 export const variantEditFormSchema = z.object({
 	v_value: z.string().nullable(),
-	sku: z.string().min(1, 'SKU є обов\'язковим'),
 	price: z
 		.string()
 		.min(1, 'Ціна є обов\'язковою')
