@@ -12,6 +12,9 @@ const apiClient = axios.create({
 	withCredentials: true
 })
 
+// Module-level singleton: ensures that multiple simultaneous 401s trigger exactly one
+// /auth/refresh call. All waiting requests share the same promise and retry together
+// once the token is renewed. Reset to null in .finally() so the next cycle can start fresh.
 let refreshPromise: Promise<boolean> | null = null
 
 apiClient.interceptors.response.use(
@@ -43,6 +46,8 @@ apiClient.interceptors.response.use(
 	}
 )
 
+// Validates the response body against an optional Zod schema.
+// On Zod failure: toasts the validation error and re-throws (not suppressed by skipErrorToast).
 const handleAxiosResponse = async <T>(schema: z.ZodType<T> | undefined, data: T): Promise<T> => {
 	try {
 		if (schema) {
@@ -112,8 +117,10 @@ export class HttpService {
 		return await handleAxiosResponse(config?.schema, response.data)
 	}
 
+	// Uses native fetch instead of apiClient (Axios) to avoid triggering the response
+	// interceptor again, which would cause an infinite 401 → refresh → 401 loop.
 	static async refreshToken(): Promise<boolean> {
-		const { logOut, setUser } = useAuthStore.getState()
+		const { setUser, logOut } = useAuthStore.getState()
 
 		const res = await fetch(API_BASE_URL + API_URLS.AUTH.REFRESH, {
 			method: 'POST',

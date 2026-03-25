@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { httpService } from '../services/http.service'
 import { User } from '../types'
-import { authResponseSchema } from '@/app/auth/auth.schema'
+import { authResponseSchema } from '@/app/(root)/auth/auth.schema'
 
 interface AuthState {
 	user: User | null

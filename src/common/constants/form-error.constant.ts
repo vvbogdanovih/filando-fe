@@ -4,6 +4,6 @@ export const FORM_ERRORS = {
 	FIELD_SHOULD_BE_EMAIL: 'Поле повинно бути email',
 	FIELD_SHOULD_BE_MIN_LENGTH: (min: number) => `Поле повинно бути мінімальної довжини ${min}`,
 	PASSWORDS_DO_NOT_MATCH: 'Паролі не збігаються',
-	FILED_SHOULD_BE_NUMBER: 'Поле повинно бути числом',
-	FILED_SHOULD_BE_DATE: 'Поле повинно бути датою'
+	FIELD_SHOULD_BE_NUMBER: 'Поле повинно бути числом',
+	FIELD_SHOULD_BE_DATE: 'Поле повинно бути датою'
 } as const

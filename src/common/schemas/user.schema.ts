@@ -1,11 +1,8 @@
 import { z } from 'zod'
-export enum Role {
-	USER = 'USER',
-	MODERATOR = 'MODERATOR',
-	ADMIN = 'ADMIN'
-}
+import { Role } from '@/common/constants'
 
-const roleSchema = z.enum(Role)
+// Role is the authoritative enum from role.constants.ts
+const roleSchema = z.nativeEnum(Role)
 
 export const userSchema = z.object({
 	id: z.string(),
