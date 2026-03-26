@@ -15,6 +15,7 @@ export const API_URLS = {
 		WITH_SUBCATEGORIES: `/categories/with-subcategories`, // GET  — full list with embedded subcategory trees
 		BASE: `/categories`, // POST — create category
 		BY_ID: (id: string) => `/categories/${id}`, // GET/PATCH/DELETE
+		BY_SLUG: (slug: string) => `/categories/slug/${slug}`, // GET — resolve slug to category doc
 		SUBCATEGORIES: (catId: string) => `/categories/${catId}/subcategories`, // GET/POST
 		SUBCATEGORY_BY_ID: (catId: string, subId: string) =>
 			`/categories/${catId}/subcategories/${subId}` // GET/PATCH/DELETE
@@ -30,6 +31,8 @@ export const API_URLS = {
 	},
 	PRODUCTS: {
 		BASE: `/products`, // GET (list) / POST (create)
+		CATALOG: `/products/catalog`, // GET — paginated, filtered catalog for a subcategory
+		BY_SLUG: (slug: string) => `/products/by-slug/${slug}`, // GET — variant detail + product + siblings
 		BY_ID: (id: string) => `/products/${id}`, // GET / PATCH / DELETE
 		VALIDATE: `/products/validate`, // POST — check slug + SKU uniqueness before create
 		VARIANTS: (id: string) => `/products/${id}/variants`, // GET (list) / POST (add variant)
