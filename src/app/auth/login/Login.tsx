@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { authApi } from '../auth.api'
 import { loginSchema, type LoginValues } from '../auth.schema'
 import { useAuthStore } from '@/common/store/useAuthStore'
+import { useCartStore } from '@/common/store/useCartStore'
 import { UI_URLS } from '@/common/constants'
 import { Input } from '@/common/components/ui/input'
 import { Label } from '@/common/components/ui/label'
@@ -15,10 +16,14 @@ import { AuthForm } from '../AuthForm'
 
 export const Login = () => {
 	const setUser = useAuthStore(state => state.setUser)
+	const mergeAndSync = useCartStore(state => state.mergeAndSync)
 
 	const { mutate: login, isPending } = useMutation({
 		mutationFn: (data: LoginValues) => authApi.login(data),
-		onSuccess: data => setUser(data.user)
+		onSuccess: async data => {
+			setUser(data.user)
+			await mergeAndSync()
+		},
 	})
 
 	const form = useForm<LoginValues>({

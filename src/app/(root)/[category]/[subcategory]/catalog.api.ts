@@ -7,6 +7,7 @@ export interface CatalogItem {
     slug: string
     sku: string
     price: number
+    stock: number
     v_value: string | null
     attributes: { k: string; l: string; v: string | number | boolean }[]
     main_image: string | null
@@ -33,6 +34,8 @@ export interface ProductDetailData {
         variant_type: { key: string; label: string } | null
     }
     siblings: { id: string; name: string; slug: string; price: number; v_value: string | null; images: string[] }[]
+    category_slug: string
+    subcategory_slug: string
 }
 
 export interface CatalogResponse {

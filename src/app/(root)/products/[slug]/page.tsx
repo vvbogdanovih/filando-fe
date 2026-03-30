@@ -1,13 +1,14 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { env } from '@/env'
 import { ProductPage } from './ProductPage'
 
 interface PageProps {
-    params: Promise<{ category: string; subcategory: string; slug: string }>
+    params: Promise<{ slug: string }>
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {
-    const { category, subcategory, slug } = await params
+    const { slug } = await params
 
     let data
     try {
@@ -22,5 +23,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
     if (!data?.variant) notFound()
 
-    return <ProductPage data={data} categorySlug={category} subcategorySlug={subcategory} />
+    return (
+        <Suspense>
+            <ProductPage data={data} />
+        </Suspense>
+    )
 }

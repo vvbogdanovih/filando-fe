@@ -30,7 +30,7 @@ export default async function CategorySubcategoryPage({ params }: PageProps) {
 
     return (
         <Suspense>
-            <CatalogPage subcategory={sub} categorySlug={category} subcategorySlug={subcategory} />
+            <CatalogPage subcategory={sub} />
         </Suspense>
     )
 }

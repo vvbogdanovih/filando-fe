@@ -4,7 +4,6 @@ import { CatalogProductCard } from './CatalogProductCard'
 interface ProductGridProps {
     items: CatalogItem[]
     isLoading: boolean
-    basePath: string
 }
 
 const SkeletonCard = () => (
@@ -17,7 +16,7 @@ const SkeletonCard = () => (
     </div>
 )
 
-export const ProductGrid = ({ items, isLoading, basePath }: ProductGridProps) => {
+export const ProductGrid = ({ items, isLoading }: ProductGridProps) => {
     if (isLoading) {
         return (
             <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -39,7 +38,7 @@ export const ProductGrid = ({ items, isLoading, basePath }: ProductGridProps) =>
     return (
         <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             {items.map(item => (
-                <CatalogProductCard key={item.id} item={item} href={`${basePath}/${item.slug}`} />
+                <CatalogProductCard key={item.id} item={item} href={`/products/${item.slug}`} />
             ))}
         </div>
     )

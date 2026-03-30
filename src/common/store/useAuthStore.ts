@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { httpService } from '../services/http.service'
 import { User } from '../types'
-import { authResponseSchema } from '@/app/(root)/auth/auth.schema'
+import { authResponseSchema } from '@/app/auth/auth.schema'
 
 interface AuthState {
 	user: User | null
@@ -34,7 +34,8 @@ export const useAuthStore = create<AuthState>()(
 
 				try {
 					const response = await httpService.get(API_URLS.AUTH.ME, {
-						schema: authResponseSchema
+						schema: authResponseSchema,
+						skipErrorToast: true,
 					})
 					set({ user: response.user, isAuthChecked: true })
 				} catch {

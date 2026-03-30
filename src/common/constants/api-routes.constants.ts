@@ -38,5 +38,11 @@ export const API_URLS = {
 		VARIANTS: (id: string) => `/products/${id}/variants`, // GET (list) / POST (add variant)
 		VARIANT_BY_ID: (id: string, variantId: string) => `/products/${id}/variants/${variantId}`, // GET / PATCH / DELETE
 		VARIANT_IMAGES: (id: string, variantId: string) => `/products/${id}/variants/${variantId}/images` // PATCH — set variant images
+	},
+	CART: {
+		BASE: `/cart`, // GET — fetch cart; DELETE — clear all
+		ITEMS: `/cart/items`, // POST — add item { variant_id, quantity }
+		ITEM: (variantId: string) => `/cart/items/${variantId}`, // PATCH — update quantity; DELETE — remove item
+		MERGE: `/cart/merge` // POST — merge guest cart after login
 	}
 }

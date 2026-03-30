@@ -10,12 +10,9 @@ import { Pagination } from './components/Pagination'
 
 interface CatalogPageProps {
     subcategory: Subcategory
-    categorySlug: string
-    subcategorySlug: string
 }
 
-export const CatalogPage = ({ subcategory, categorySlug, subcategorySlug }: CatalogPageProps) => {
-    const basePath = `/${categorySlug}/${subcategorySlug}`
+export const CatalogPage = ({ subcategory }: CatalogPageProps) => {
     const router = useRouter()
     const searchParams = useSearchParams()
 
@@ -59,7 +56,7 @@ export const CatalogPage = ({ subcategory, categorySlug, subcategorySlug }: Cata
                     />
                 </aside>
                 <main className='flex-1 min-w-0'>
-                    <ProductGrid items={data?.items ?? []} isLoading={isLoading} basePath={basePath} />
+                    <ProductGrid items={data?.items ?? []} isLoading={isLoading} />
                     {data && data.pagination.totalPages > 1 && (
                         <Pagination pagination={data.pagination} onPageChange={setPage} />
                     )}
