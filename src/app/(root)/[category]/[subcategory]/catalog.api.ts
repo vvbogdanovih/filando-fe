@@ -53,9 +53,9 @@ export interface CatalogResponse {
 export type CatalogQueryParams = Record<string, string> & { subcategory_id: string }
 
 export const getCatalogProducts = (params: CatalogQueryParams): Promise<CatalogResponse> => {
-    return httpService.get<CatalogResponse>(API_URLS.PRODUCTS.CATALOG, { params })
+    return httpService.get<CatalogResponse, unknown>(API_URLS.PRODUCTS.CATALOG, { params })
 }
 
 export const getVariantBySlug = (slug: string): Promise<ProductDetailData> => {
-    return httpService.get<ProductDetailData>(API_URLS.PRODUCTS.BY_SLUG(slug))
+    return httpService.get<ProductDetailData, unknown>(API_URLS.PRODUCTS.BY_SLUG(slug))
 }
