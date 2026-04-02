@@ -12,6 +12,7 @@ export const attributeItemSchema = z.object({
 
 export const variantFormItemSchema = z.object({
 	v_value: z.string().nullable(),
+	sku: z.string().optional(),
 	price: z
 		.string()
 		.min(1, 'Ціна є обов\'язковою')

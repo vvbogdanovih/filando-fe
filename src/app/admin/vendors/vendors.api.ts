@@ -6,7 +6,7 @@ export const vendorsApi = {
 	getAll: () => httpService.get(API_URLS.VENDORS.BASE, { schema: vendorsListSchema }),
 
 	checkSlugAvailability: (slug: string) =>
-		httpService.get<{ available: boolean }>(
+		httpService.get<{ available: boolean }, unknown>(
 			`${API_URLS.VENDORS.CHECK_AVAILABILITY}?slug=${encodeURIComponent(slug)}`,
 			{ skipErrorToast: true }
 		),

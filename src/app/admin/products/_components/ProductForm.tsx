@@ -151,7 +151,7 @@ export const ProductForm = () => {
 		try {
 			const { slugs: takenSlugs, skus: takenSkus } = await productsApi.validate({
 				slugs: variantSlugsAndSkus.map(v => v.slug),
-				skus: variantSlugsAndSkus.map(v => v.sku)
+				skus: variantSlugsAndSkus.map(v => v.sku).filter((s): s is string => s !== undefined)
 			})
 
 			let hasConflict = false
@@ -162,7 +162,7 @@ export const ProductForm = () => {
 					})
 					hasConflict = true
 				}
-				if (takenSkus.includes(sku)) {
+				if (sku !== undefined && takenSkus.includes(sku)) {
 					setError(`variants.${i}.sku`, { message: 'Цей SKU вже використовується' })
 					hasConflict = true
 				}
