@@ -1,5 +1,6 @@
 import { httpService } from '@/common/services/http.service'
 import { API_URLS } from '@/common/constants'
+import { categorySchema, type Category } from '@/app/admin/categories/categories.schema'
 
 export interface CatalogItem {
     id: string
@@ -58,4 +59,10 @@ export const getCatalogProducts = (params: CatalogQueryParams): Promise<CatalogR
 
 export const getVariantBySlug = (slug: string): Promise<ProductDetailData> => {
     return httpService.get<ProductDetailData, unknown>(API_URLS.PRODUCTS.BY_SLUG(slug))
+}
+
+export const getCategoryBySlug = (slug: string): Promise<Category> => {
+    return httpService.get<Category, unknown>(API_URLS.CATEGORIES.BY_SLUG(slug), {
+        schema: categorySchema,
+    })
 }

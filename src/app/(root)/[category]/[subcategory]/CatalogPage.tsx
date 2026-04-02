@@ -2,25 +2,33 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
-import { Subcategory } from '@/app/admin/categories/categories.schema'
-import { getCatalogProducts } from './catalog.api'
+import { getCatalogProducts, getCategoryBySlug } from './catalog.api'
 import { FilterSidebar } from './components/FilterSidebar'
 import { ProductGrid } from './components/ProductGrid'
 import { Pagination } from './components/Pagination'
 
 interface CatalogPageProps {
-    subcategory: Subcategory
+    categorySlug: string
+    subcategorySlug: string
 }
 
-export const CatalogPage = ({ subcategory }: CatalogPageProps) => {
+export const CatalogPage = ({ categorySlug, subcategorySlug }: CatalogPageProps) => {
     const router = useRouter()
     const searchParams = useSearchParams()
 
     const params = Object.fromEntries(searchParams.entries())
 
+    const { data: category } = useQuery({
+        queryKey: ['category', categorySlug],
+        queryFn: () => getCategoryBySlug(categorySlug),
+    })
+
+    const subcategory = category?.subcategories.find(s => s.slug === subcategorySlug)
+
     const { data, isLoading } = useQuery({
-        queryKey: ['catalog', subcategory._id, params],
-        queryFn: () => getCatalogProducts({ subcategory_id: subcategory._id, ...params }),
+        queryKey: ['catalog', subcategory?._id, params],
+        queryFn: () => getCatalogProducts({ subcategory_id: subcategory!._id, ...params }),
+        enabled: !!subcategory,
     })
 
     const updateParams = (changes: Record<string, string | null>) => {
@@ -41,6 +49,8 @@ export const CatalogPage = ({ subcategory }: CatalogPageProps) => {
         next.set('page', String(page))
         router.replace(`?${next.toString()}`)
     }
+
+    if (!subcategory) return null
 
     return (
         <div className='container mx-auto max-w-7xl px-4 py-8'>
