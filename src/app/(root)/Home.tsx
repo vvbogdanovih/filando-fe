@@ -32,6 +32,7 @@ export const Home = () => {
 							src={FILAMENT_IMAGE}
 							alt='Філамент для 3D-друку'
 							fill
+							unoptimized
 							className='object-cover transition-transform duration-500 group-hover:scale-105'
 							priority
 						/>
