@@ -4,8 +4,9 @@ const nextConfig: NextConfig = {
 	output: 'standalone',
 	reactCompiler: true,
 	images: {
-		// Cap at 1920 so /_next/image never requests 3840px wide sources (OOM on small VPS).
-		deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+		// `deviceSizes` only caps the *output* width; Sharp still downloads/decodes the full S3
+		// object per request, which can OOM a 1–2 GB VPS. Serve remote URLs as-is (browser → S3).
+		unoptimized: true,
 		remotePatterns: [
 			{
 				protocol: 'https',
