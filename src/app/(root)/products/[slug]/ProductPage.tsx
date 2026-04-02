@@ -4,8 +4,8 @@ import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
 import { ShoppingCart, Check, Loader2, Minus, Plus } from 'lucide-react'
-import toast from 'react-hot-toast'
 import { Badge } from '@/common/components/ui/badge'
 import {
 	Select,
@@ -16,15 +16,18 @@ import {
 } from '@/common/components/ui/select'
 import { cn } from '@/common/utils/shad-cn.utils'
 import { useCartStore } from '@/common/store/useCartStore'
-import { ProductDetailData } from '@/app/(root)/[category]/[subcategory]/catalog.api'
+import { getVariantBySlug } from '@/app/(root)/[category]/[subcategory]/catalog.api'
 
 interface ProductPageProps {
-	data: ProductDetailData
+	slug: string
 }
 
-export const ProductPage = ({ data }: ProductPageProps) => {
-	const { variant, product, siblings, category_slug, subcategory_slug } = data
-	const images = variant.images
+export const ProductPage = ({ slug }: ProductPageProps) => {
+	const { data, isLoading, isError } = useQuery({
+		queryKey: ['product', slug],
+		queryFn: () => getVariantBySlug(slug)
+	})
+
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [quantity, setQuantity] = useState(1)
 	const [isAdding, setIsAdding] = useState(false)
@@ -32,8 +35,16 @@ export const ProductPage = ({ data }: ProductPageProps) => {
 	const router = useRouter()
 	const addItem = useCartStore(s => s.addItem)
 	const openCart = useCartStore(s => s.openCart)
-	const inAuthCart = useCartStore(s => s.items.some(i => i.variant_id === variant.id))
-	const inGuestCart = useCartStore(s => s.guestItems.some(i => i.variant_id === variant.id))
+
+	const variant = data?.variant
+	const product = data?.product
+	const siblings = data?.siblings ?? []
+	const images = variant?.images ?? []
+
+	const inAuthCart = useCartStore(s => s.items.some(i => i.variant_id === (variant?.id ?? '')))
+	const inGuestCart = useCartStore(s =>
+		s.guestItems.some(i => i.variant_id === (variant?.id ?? ''))
+	)
 	const isInCart = inAuthCart || inGuestCart
 
 	const prev = useCallback(
@@ -41,6 +52,24 @@ export const ProductPage = ({ data }: ProductPageProps) => {
 		[images.length]
 	)
 	const next = useCallback(() => setCurrentIndex(i => (i + 1) % images.length), [images.length])
+
+	if (isLoading) {
+		return (
+			<div className='container mx-auto flex max-w-7xl items-center justify-center px-4 py-32'>
+				<Loader2 className='text-primary h-8 w-8 animate-spin' />
+			</div>
+		)
+	}
+
+	if (isError || !data || !variant || !product) {
+		return (
+			<div className='container mx-auto max-w-7xl px-4 py-32 text-center'>
+				<p className='text-muted-foreground'>Товар не знайдено</p>
+			</div>
+		)
+	}
+
+	const { category_slug, subcategory_slug } = data
 
 	const catalogPath = `/${category_slug}/${subcategory_slug}`
 	const displayName = variant.v_value ? `${product.name} — ${variant.v_value}` : variant.name
