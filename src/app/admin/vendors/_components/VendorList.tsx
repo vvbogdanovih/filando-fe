@@ -66,7 +66,6 @@ export const VendorList = ({ vendors, selectedId, onSelect, onCreate }: VendorLi
 								{vendor.name}
 							</p>
 							<p className='truncate text-xs text-gray-400'>{vendor.slug}</p>
-
 						</div>
 
 						{/* Actions */}

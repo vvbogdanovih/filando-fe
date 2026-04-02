@@ -30,13 +30,15 @@ export const NameBlock = ({ control, errors, register }: NameBlockProps) => {
 				/>
 				{errors.name && <p className='text-destructive text-xs'>{errors.name.message}</p>}
 				<p className='text-muted-foreground text-xs'>
-					Якщо продукт має варіанти, ця назва використовується як основа — значення варіанта
-					додається до неї.
+					Якщо продукт має варіанти, ця назва використовується як основа — значення
+					варіанта додається до неї.
 				</p>
 			</div>
 
 			<div className='flex flex-col gap-1'>
-				<span className='text-xs font-medium text-gray-500'>Slug (попередній перегляд)</span>
+				<span className='text-xs font-medium text-gray-500'>
+					Slug (попередній перегляд)
+				</span>
 				<span className='font-mono text-xs text-gray-400'>
 					{slugPreview || <span className='italic'>буде згенеровано з назви</span>}
 				</span>

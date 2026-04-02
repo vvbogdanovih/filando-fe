@@ -54,9 +54,13 @@ export const Products = () => {
 						<tbody className='divide-y divide-gray-200'>
 							{products.map(product => (
 								<tr key={product._id} className='hover:bg-gray-50'>
-									<td className='px-6 py-4 font-medium text-gray-900'>{product.name}</td>
+									<td className='px-6 py-4 font-medium text-gray-900'>
+										{product.name}
+									</td>
 									<td className='px-6 py-4 text-gray-500'>
-										{product.variant_type ? product.variant_type.label : 'Без варіантів'}
+										{product.variant_type
+											? product.variant_type.label
+											: 'Без варіантів'}
 									</td>
 									<td className='px-6 py-4 text-right'>
 										<Button asChild size='sm' variant='ghost'>

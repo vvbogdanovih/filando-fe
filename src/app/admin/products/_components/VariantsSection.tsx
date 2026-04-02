@@ -30,12 +30,13 @@ interface VariantsSectionProps {
 	variantTypeAttrValue?: string
 }
 
-type ModalState =
-	| { mode: 'add' }
-	| { mode: 'edit'; variant: ProductVariantFull }
-	| null
+type ModalState = { mode: 'add' } | { mode: 'edit'; variant: ProductVariantFull } | null
 
-export const VariantsSection = ({ productId, hasVariants, variantTypeAttrValue }: VariantsSectionProps) => {
+export const VariantsSection = ({
+	productId,
+	hasVariants,
+	variantTypeAttrValue
+}: VariantsSectionProps) => {
 	const queryClient = useQueryClient()
 	const [modalState, setModalState] = useState<ModalState>(null)
 	const [deletingVariantId, setDeletingVariantId] = useState<string | null>(null)
@@ -68,11 +69,7 @@ export const VariantsSection = ({ productId, hasVariants, variantTypeAttrValue }
 		<section className='flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6'>
 			<div className='flex items-center justify-between'>
 				<h2 className='text-sm font-semibold text-gray-900'>Варіанти</h2>
-				<Button
-					type='button'
-					size='sm'
-					onClick={() => setModalState({ mode: 'add' })}
-				>
+				<Button type='button' size='sm' onClick={() => setModalState({ mode: 'add' })}>
 					<PlusIcon className='size-4' />
 					Додати варіант
 				</Button>
@@ -94,7 +91,9 @@ export const VariantsSection = ({ productId, hasVariants, variantTypeAttrValue }
 										Значення
 									</th>
 								)}
-								<th className='py-2 pr-4 text-left text-xs font-medium text-gray-500'>SKU</th>
+								<th className='py-2 pr-4 text-left text-xs font-medium text-gray-500'>
+									SKU
+								</th>
 								<th className='py-2 pr-4 text-left text-xs font-medium text-gray-500'>
 									Ціна
 								</th>

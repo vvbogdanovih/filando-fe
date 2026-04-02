@@ -57,8 +57,7 @@ export const VariantModal = ({
 }: VariantModalProps) => {
 	const isEdit = mode === 'edit'
 	// v_value is locked when adding the first variant — its value is the product attribute's value
-	const isVValueLocked =
-		!isEdit && hasVariants && !hasExistingVariants && !!variantTypeAttrValue
+	const isVValueLocked = !isEdit && hasVariants && !hasExistingVariants && !!variantTypeAttrValue
 
 	const [imageUploads, setImageUploads] = useState<ImageUploadItem[]>([])
 
@@ -129,7 +128,7 @@ export const VariantModal = ({
 	const onSubmit = handleSubmit(async values => {
 		// Require v_value when product has variants
 		if (hasVariants && !values.v_value?.trim()) {
-			setError('v_value', { message: 'Значення варіанта є обов\'язковим' })
+			setError('v_value', { message: "Значення варіанта є обов'язковим" })
 			return
 		}
 
@@ -191,7 +190,8 @@ export const VariantModal = ({
 							/>
 							{isVValueLocked && (
 								<p className='text-muted-foreground text-xs'>
-									Значення береться з атрибута продукту і не може бути змінено тут.
+									Значення береться з атрибута продукту і не може бути змінено
+									тут.
 								</p>
 							)}
 							{errors.v_value && (

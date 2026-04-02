@@ -51,9 +51,7 @@ const SortableImage = ({ item, onRemove }: SortableImageProps) => {
 			style={style}
 			className='relative flex h-24 w-24 shrink-0 flex-col overflow-hidden rounded-md border border-gray-200'
 		>
-			{src && (
-				<img src={src} alt='preview' className='h-full w-full object-cover' />
-			)}
+			{src && <img src={src} alt='preview' className='h-full w-full object-cover' />}
 
 			{item.status === 'uploading' && (
 				<div className='absolute inset-0 flex items-center justify-center bg-white/70'>
@@ -158,7 +156,11 @@ export const ImageDropzone = ({ images, onChange }: ImageDropzoneProps) => {
 
 			{/* Thumbnails */}
 			{images.length > 0 && (
-				<DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+				<DndContext
+					sensors={sensors}
+					collisionDetection={closestCenter}
+					onDragEnd={handleDragEnd}
+				>
 					<SortableContext
 						items={images.map(img => img.id)}
 						strategy={horizontalListSortingStrategy}

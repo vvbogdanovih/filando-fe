@@ -123,8 +123,7 @@ export const productsApi = {
 			skipErrorToast: true
 		}),
 
-	deleteProduct: (id: string): Promise<void> =>
-		httpService.delete(API_URLS.PRODUCTS.BY_ID(id)),
+	deleteProduct: (id: string): Promise<void> => httpService.delete(API_URLS.PRODUCTS.BY_ID(id)),
 
 	addVariant: (productId: string, data: AddVariantPayload): Promise<ProductVariantFull> =>
 		httpService.post(API_URLS.PRODUCTS.VARIANTS(productId), data, {

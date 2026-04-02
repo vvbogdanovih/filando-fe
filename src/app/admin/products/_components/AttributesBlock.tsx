@@ -60,16 +60,22 @@ export const AttributesBlock = ({ fieldArray, errors, requiredAttrs }: Attribute
 			{/* Required attributes from subcategory */}
 			{requiredAttrs.length > 0 && (
 				<div className='flex flex-col gap-3'>
-					<p className='text-xs font-medium text-gray-500'>Обов'язкові атрибути підкатегорії</p>
+					<p className='text-xs font-medium text-gray-500'>
+						Обов'язкові атрибути підкатегорії
+					</p>
 					{requiredAttrs.map((attr, i) => {
 						const fieldIndex = i
 						const field = fields[fieldIndex] as AttributeItem | undefined
 						return (
 							<div key={attr.key} className='flex items-start gap-3'>
 								<div className='flex w-48 shrink-0 flex-col gap-1'>
-									<span className='text-xs font-medium text-gray-700'>{attr.label}</span>
+									<span className='text-xs font-medium text-gray-700'>
+										{attr.label}
+									</span>
 									{attr.unit && (
-										<span className='text-muted-foreground text-[11px]'>({attr.unit})</span>
+										<span className='text-muted-foreground text-[11px]'>
+											({attr.unit})
+										</span>
 									)}
 								</div>
 								<div className='flex flex-1 flex-col gap-1'>
@@ -107,9 +113,13 @@ export const AttributesBlock = ({ fieldArray, errors, requiredAttrs }: Attribute
 						const absIndex = requiredCount + relIndex
 						return (
 							<div key={field.id} className='flex items-center gap-2'>
-								<span className='w-40 shrink-0 truncate text-xs text-gray-700'>{field.l}</span>
+								<span className='w-40 shrink-0 truncate text-xs text-gray-700'>
+									{field.l}
+								</span>
 								<span className='font-mono text-xs text-gray-400'>{field.k}</span>
-								<span className='flex-1 text-xs text-gray-600'>{String(field.v)}</span>
+								<span className='flex-1 text-xs text-gray-600'>
+									{String(field.v)}
+								</span>
 								<Button
 									type='button'
 									size='icon-xs'
@@ -133,7 +143,9 @@ export const AttributesBlock = ({ fieldArray, errors, requiredAttrs }: Attribute
 						<Input
 							placeholder='Назва (укр.)'
 							value={staging.label}
-							onChange={e => setStaging(s => ({ ...s, label: e.target.value, error: null }))}
+							onChange={e =>
+								setStaging(s => ({ ...s, label: e.target.value, error: null }))
+							}
 							aria-invalid={!!staging.error}
 						/>
 					</div>

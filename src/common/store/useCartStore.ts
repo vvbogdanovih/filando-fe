@@ -80,7 +80,7 @@ export const useCartStore = create<CartStore>()(
 				set({ isLoading: true })
 				try {
 					const res = await httpService.get<CartResponse, unknown>(API_URLS.CART.BASE, {
-						skipErrorToast: true,
+						skipErrorToast: true
 					})
 					applyCartResponse(res, set)
 				} catch {
@@ -100,18 +100,30 @@ export const useCartStore = create<CartStore>()(
 						set({
 							guestItems: guestItems.map(i =>
 								i.variant_id === variantId
-									? { ...i, quantity: i.quantity + quantity, _meta: meta ?? i._meta }
+									? {
+											...i,
+											quantity: i.quantity + quantity,
+											_meta: meta ?? i._meta
+										}
 									: i
-							),
+							)
 						})
 					} else {
-						set({ guestItems: [...guestItems, { variant_id: variantId, quantity, _meta: meta }] })
+						set({
+							guestItems: [
+								...guestItems,
+								{ variant_id: variantId, quantity, _meta: meta }
+							]
+						})
 					}
 					return
 				}
 
 				// Throws on error (skipErrorToast: true) — callers handle display
-				const res = await httpService.post<CartResponse, { variant_id: string; quantity: number }>(
+				const res = await httpService.post<
+					CartResponse,
+					{ variant_id: string; quantity: number }
+				>(
 					API_URLS.CART.ITEMS,
 					{ variant_id: variantId, quantity },
 					{ skipErrorToast: true }
@@ -127,12 +139,14 @@ export const useCartStore = create<CartStore>()(
 				applyCartResponse(res, set)
 			},
 
-			removeItem: async (variantId) => {
-				const res = await httpService.delete<CartResponse, unknown>(API_URLS.CART.ITEM(variantId))
+			removeItem: async variantId => {
+				const res = await httpService.delete<CartResponse, unknown>(
+					API_URLS.CART.ITEM(variantId)
+				)
 				applyCartResponse(res, set)
 			},
 
-			removeGuestItem: (variantId) => {
+			removeGuestItem: variantId => {
 				set({ guestItems: get().guestItems.filter(i => i.variant_id !== variantId) })
 			},
 
@@ -140,7 +154,7 @@ export const useCartStore = create<CartStore>()(
 				set({
 					guestItems: get().guestItems.map(i =>
 						i.variant_id === variantId ? { ...i, quantity } : i
-					),
+					)
 				})
 			},
 
@@ -166,11 +180,11 @@ export const useCartStore = create<CartStore>()(
 
 			resetServerCart: () => {
 				set({ items: [] })
-			},
+			}
 		}),
 		{
 			name: 'filando-cart',
-			partialize: state => ({ guestItems: state.guestItems }),
+			partialize: state => ({ guestItems: state.guestItems })
 		}
 	)
 )

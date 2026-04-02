@@ -57,7 +57,7 @@ export function AuthForm<T extends FieldValues>({
 		<div className='flex h-screen w-full flex-col items-center justify-center'>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
-				className='flex w-full max-w-sm flex-col gap-4 rounded-xl border bg-card p-10 shadow-(--shadow-glow)'
+				className='bg-card flex w-full max-w-sm flex-col gap-4 rounded-xl border p-10 shadow-(--shadow-glow)'
 			>
 				<div className='text-2xl font-bold'>{title}</div>
 

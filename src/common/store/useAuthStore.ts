@@ -35,7 +35,7 @@ export const useAuthStore = create<AuthState>()(
 				try {
 					const response = await httpService.get(API_URLS.AUTH.ME, {
 						schema: authResponseSchema,
-						skipErrorToast: true,
+						skipErrorToast: true
 					})
 					set({ user: response.user, isAuthChecked: true })
 				} catch {

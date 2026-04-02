@@ -134,8 +134,10 @@ export const ProductEditForm = ({ product }: ProductEditFormProps) => {
 	const registerCast = register as unknown as UseFormRegister<ProductFormValues>
 	const errorsCast = errors as unknown as FieldErrors<ProductFormValues>
 	const setValueCast = setValue as unknown as UseFormSetValue<ProductFormValues>
-	const fieldArrayCast =
-		attributesFieldArray as unknown as UseFieldArrayReturn<ProductFormValues, 'attributes'>
+	const fieldArrayCast = attributesFieldArray as unknown as UseFieldArrayReturn<
+		ProductFormValues,
+		'attributes'
+	>
 
 	return (
 		<form onSubmit={onSubmit} className='flex flex-col gap-6'>
@@ -195,8 +197,8 @@ export const ProductEditForm = ({ product }: ProductEditFormProps) => {
 						)}
 					/>
 					<p className='text-muted-foreground text-xs'>
-						Оберіть атрибут, що визначає варіанти (наприклад: Колір). Залиште порожнім для
-						продуктів без варіантів.
+						Оберіть атрибут, що визначає варіанти (наприклад: Колір). Залиште порожнім
+						для продуктів без варіантів.
 					</p>
 				</div>
 			</section>

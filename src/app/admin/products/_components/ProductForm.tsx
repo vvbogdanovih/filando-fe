@@ -127,7 +127,13 @@ export const ProductForm = () => {
 	}, [])
 
 	const handleAddVariant = useCallback(() => {
-		variantsFieldArray.append({ v_value: '', price: '', stock: '', images: [], vendor_product_sku: '' })
+		variantsFieldArray.append({
+			v_value: '',
+			price: '',
+			stock: '',
+			images: [],
+			vendor_product_sku: ''
+		})
 		setVariantImageUploads(prev => [...prev, []])
 	}, [variantsFieldArray])
 
@@ -151,7 +157,9 @@ export const ProductForm = () => {
 		try {
 			const { slugs: takenSlugs, skus: takenSkus } = await productsApi.validate({
 				slugs: variantSlugsAndSkus.map(v => v.slug),
-				skus: variantSlugsAndSkus.map(v => v.sku).filter((s): s is string => s !== undefined)
+				skus: variantSlugsAndSkus
+					.map(v => v.sku)
+					.filter((s): s is string => s !== undefined)
 			})
 
 			let hasConflict = false
@@ -173,9 +181,10 @@ export const ProductForm = () => {
 		}
 
 		// 2. Collect description from Quill (written to ref by DescriptionBlock.onChange)
-		const description = descriptionRef.current?.html?.replace(/<p><br><\/p>/, '') !== ''
-			? descriptionRef.current
-			: null
+		const description =
+			descriptionRef.current?.html?.replace(/<p><br><\/p>/, '') !== ''
+				? descriptionRef.current
+				: null
 
 		// 3. Resolve variant_type from attributes
 		let variantType: { key: string; label: string } | null = null

@@ -8,7 +8,10 @@ export function Footer() {
 			<div className='container mx-auto max-w-7xl px-4 py-10'>
 				<div className='flex flex-col items-start justify-between gap-8 md:flex-row md:items-center'>
 					{/* Logo */}
-					<Link href={UI_URLS.HOME} className='flex items-center gap-2 transition-opacity hover:opacity-80'>
+					<Link
+						href={UI_URLS.HOME}
+						className='flex items-center gap-2 transition-opacity hover:opacity-80'
+					>
 						<div className='bg-primary flex h-9 w-9 items-center justify-center rounded-lg'>
 							<Printer className='text-primary-foreground h-5 w-5' />
 						</div>

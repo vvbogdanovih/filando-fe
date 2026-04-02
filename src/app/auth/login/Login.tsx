@@ -23,7 +23,7 @@ export const Login = () => {
 		onSuccess: async data => {
 			setUser(data.user)
 			await mergeAndSync()
-		},
+		}
 	})
 
 	const form = useForm<LoginValues>({

@@ -14,7 +14,11 @@ interface EditProductProps {
 }
 
 export const EditProduct = ({ id }: EditProductProps) => {
-	const { data: product, isLoading, isError } = useQuery({
+	const {
+		data: product,
+		isLoading,
+		isError
+	} = useQuery({
 		queryKey: ['product', id],
 		queryFn: () => productsApi.getById(id)
 	})
@@ -28,7 +32,11 @@ export const EditProduct = ({ id }: EditProductProps) => {
 					</Link>
 				</Button>
 				<h1 className='text-lg font-semibold text-gray-900'>
-					{isLoading ? 'Завантаження...' : product ? `Редагування: ${product.name}` : 'Продукт'}
+					{isLoading
+						? 'Завантаження...'
+						: product
+							? `Редагування: ${product.name}`
+							: 'Продукт'}
 				</h1>
 			</div>
 

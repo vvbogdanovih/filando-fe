@@ -38,9 +38,7 @@ export const VariantFieldsCard = ({
 	canRemove
 }: VariantFieldsCardProps) => {
 	const vValue = useWatch({ control, name: `variants.${index}.v_value` }) ?? ''
-	const variantSlug = hasVariants
-		? toSlug(`${productName} ${vValue}`)
-		: toSlug(productName)
+	const variantSlug = hasVariants ? toSlug(`${productName} ${vValue}`) : toSlug(productName)
 
 	const variantErrors = errors.variants?.[index]
 
@@ -79,7 +77,9 @@ export const VariantFieldsCard = ({
 						<p className='text-destructive text-xs'>{variantErrors.v_value.message}</p>
 					)}
 					<span className='font-mono text-xs text-gray-400'>
-						{variantSlug || <span className='italic text-gray-300'>slug буде згенеровано</span>}
+						{variantSlug || (
+							<span className='text-gray-300 italic'>slug буде згенеровано</span>
+						)}
 					</span>
 				</div>
 			)}

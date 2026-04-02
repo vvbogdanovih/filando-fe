@@ -23,7 +23,7 @@ export const Home = () => {
 
 			{/* Catalog */}
 			<section>
-				<p className='text-muted-foreground mb-6 text-xs font-semibold uppercase tracking-widest'>
+				<p className='text-muted-foreground mb-6 text-xs font-semibold tracking-widest uppercase'>
 					Каталог
 				</p>
 				<Link href={UI_URLS.CATALOG.FILAMENT} className='group block'>
@@ -36,13 +36,15 @@ export const Home = () => {
 							priority
 						/>
 						<div className='absolute inset-0 bg-linear-to-t from-black/75 via-black/20 to-transparent' />
-						<div className='absolute bottom-0 left-0 right-0 flex items-end justify-between p-8'>
+						<div className='absolute right-0 bottom-0 left-0 flex items-end justify-between p-8'>
 							<div>
-								<span className='text-primary text-xs font-semibold uppercase tracking-widest'>
+								<span className='text-primary text-xs font-semibold tracking-widest uppercase'>
 									Витратні матеріали
 								</span>
 								<h3 className='mt-1 text-4xl font-bold text-white'>Філамент</h3>
-								<p className='mt-2 text-sm text-white/60'>PLA · PETG · ABS · TPU · Nylon</p>
+								<p className='mt-2 text-sm text-white/60'>
+									PLA · PETG · ABS · TPU · Nylon
+								</p>
 							</div>
 							<div className='bg-primary text-primary-foreground glow-primary rounded-full p-3 transition-transform duration-300 group-hover:scale-110'>
 								<ArrowRight className='h-6 w-6' />

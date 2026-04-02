@@ -70,9 +70,17 @@ export const CategoryBlock = ({
 					control={control}
 					name='vendor_id'
 					render={({ field }) => (
-						<Select value={field.value} onValueChange={field.onChange} disabled={isVendorsLoading}>
+						<Select
+							value={field.value}
+							onValueChange={field.onChange}
+							disabled={isVendorsLoading}
+						>
 							<SelectTrigger className='w-72' aria-invalid={!!errors.vendor_id}>
-								<SelectValue placeholder={isVendorsLoading ? 'Завантаження...' : 'Оберіть вендора'} />
+								<SelectValue
+									placeholder={
+										isVendorsLoading ? 'Завантаження...' : 'Оберіть вендора'
+									}
+								/>
 							</SelectTrigger>
 							<SelectContent>
 								{vendors.map(v => (
@@ -102,8 +110,15 @@ export const CategoryBlock = ({
 								onValueChange={field.onChange}
 								disabled={isLoading}
 							>
-								<SelectTrigger className='w-full' aria-invalid={!!errors.category_id}>
-									<SelectValue placeholder={isLoading ? 'Завантаження...' : 'Оберіть категорію'} />
+								<SelectTrigger
+									className='w-full'
+									aria-invalid={!!errors.category_id}
+								>
+									<SelectValue
+										placeholder={
+											isLoading ? 'Завантаження...' : 'Оберіть категорію'
+										}
+									/>
 								</SelectTrigger>
 								<SelectContent>
 									{categories.map(cat => (

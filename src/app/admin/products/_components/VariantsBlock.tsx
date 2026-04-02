@@ -67,7 +67,7 @@ export const VariantsBlock = ({
 							type='checkbox'
 							checked={field.value}
 							onChange={field.onChange}
-							className='size-4 cursor-pointer accent-primary'
+							className='accent-primary size-4 cursor-pointer'
 						/>
 					)}
 				/>
@@ -111,7 +111,9 @@ export const VariantsBlock = ({
 						)}
 					/>
 					{errors.variant_type_key && (
-						<p className='text-destructive text-xs'>{errors.variant_type_key.message}</p>
+						<p className='text-destructive text-xs'>
+							{errors.variant_type_key.message}
+						</p>
 					)}
 				</div>
 			)}

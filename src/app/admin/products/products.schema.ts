@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 export const attributeItemSchema = z.object({
 	k: z.string(), // slug key, generated via toSlug(label)
-	l: z.string().min(1, 'Назва атрибута є обов\'язковою'),
+	l: z.string().min(1, "Назва атрибута є обов'язковою"),
 	v: z.union([z.string(), z.number(), z.boolean()])
 })
 
@@ -15,11 +15,11 @@ export const variantFormItemSchema = z.object({
 	sku: z.string().optional(),
 	price: z
 		.string()
-		.min(1, 'Ціна є обов\'язковою')
+		.min(1, "Ціна є обов'язковою")
 		.refine(v => !isNaN(Number(v)) && Number(v) >= 0, 'Введіть коректну ціну'),
 	stock: z
 		.string()
-		.min(1, 'Кількість є обов\'язковою')
+		.min(1, "Кількість є обов'язковою")
 		.refine(v => !isNaN(Number(v)) && Number(v) >= 0, 'Введіть коректну кількість'),
 	images: z.array(z.string()), // public URLs, populated after upload
 	vendor_product_sku: z.string().optional()
@@ -29,7 +29,7 @@ export const variantFormItemSchema = z.object({
 
 export const productFormSchema = z
 	.object({
-		name: z.string().min(1, 'Назва продукту є обов\'язковою'),
+		name: z.string().min(1, "Назва продукту є обов'язковою"),
 		vendor_id: z.string().min(1, 'Оберіть вендора'),
 		category_id: z.string().min(1, 'Оберіть категорію'),
 		subcategory_id: z.string().min(1, 'Оберіть підкатегорію'),
@@ -52,7 +52,7 @@ export const productFormSchema = z
 					ctx.addIssue({
 						code: z.ZodIssueCode.custom,
 						path: ['variants', i, 'v_value'],
-						message: 'Значення варіанта є обов\'язковим'
+						message: "Значення варіанта є обов'язковим"
 					})
 				}
 			})
@@ -62,7 +62,7 @@ export const productFormSchema = z
 // --- Product edit form schema ---
 
 export const productEditFormSchema = z.object({
-	name: z.string().min(1, 'Назва продукту є обов\'язковою'),
+	name: z.string().min(1, "Назва продукту є обов'язковою"),
 	vendor_id: z.string().min(1, 'Оберіть вендора'),
 	category_id: z.string().min(1, 'Оберіть категорію'),
 	subcategory_id: z.string().min(1, 'Оберіть підкатегорію'),
@@ -76,11 +76,11 @@ export const variantEditFormSchema = z.object({
 	v_value: z.string().nullable(),
 	price: z
 		.string()
-		.min(1, 'Ціна є обов\'язковою')
+		.min(1, "Ціна є обов'язковою")
 		.refine(v => !isNaN(Number(v)) && Number(v) >= 0, 'Введіть коректну ціну'),
 	stock: z
 		.string()
-		.min(1, 'Кількість є обов\'язковою')
+		.min(1, "Кількість є обов'язковою")
 		.refine(v => !isNaN(Number(v)) && Number(v) >= 0, 'Введіть коректну кількість'),
 	status: z.enum(['draft', 'active', 'archived']),
 	vendor_product_sku: z.string().optional()

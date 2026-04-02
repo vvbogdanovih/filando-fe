@@ -42,7 +42,12 @@ export const DescriptionBlock = ({ descriptionRef, initialValue }: DescriptionBl
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const handleChange = (html: string, _delta: unknown, _source: unknown, editor: UnprivilegedEditor) => {
+	const handleChange = (
+		html: string,
+		_delta: unknown,
+		_source: unknown,
+		editor: UnprivilegedEditor
+	) => {
 		setValue(html)
 		descriptionRef.current = { html, json: editor.getContents() as object }
 	}
