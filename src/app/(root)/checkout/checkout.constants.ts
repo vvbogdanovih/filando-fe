@@ -8,6 +8,6 @@ export const DELIVERY_METHOD_LABELS: Record<CheckoutFormValues['delivery_method'
 
 export const WAREHOUSE_TYPE_LABELS = {
 	PARCEL_LOCKER: 'Поштомат (до 20 кг)',
-	POST: 'Поштове відділення (до 20 кг)',
+	POST: 'Поштове відділення (до 30 кг)',
 	CARGO: 'Вантажне відділення (до 1100 кг)'
 } as const
