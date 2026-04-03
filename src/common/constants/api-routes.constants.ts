@@ -43,5 +43,11 @@ export const API_URLS = {
 		ITEMS: `/cart/items`, // POST — add item { variant_id, quantity }
 		ITEM: (variantId: string) => `/cart/items/${variantId}`, // PATCH — update quantity; DELETE — remove item
 		MERGE: `/cart/merge` // POST — merge guest cart after login
+	},
+	PAYMENT_DETAILS: {
+		BASE: `/payment-details`, // GET (list) / POST (create)
+		BY_ID: (id: string) => `/payment-details/${id}`, // PATCH / DELETE
+		ACTIVATE: (id: string) => `/payment-details/${id}/activate`, // PATCH — set active (deactivates others)
+		ACTIVE: `/payment-details/active` // GET — public active record
 	}
 }

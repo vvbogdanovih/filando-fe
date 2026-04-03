@@ -11,7 +11,8 @@ import {
 	Store,
 	Package,
 	ShoppingBag,
-	ChevronDown
+	ChevronDown,
+	CreditCard
 } from 'lucide-react'
 import { useAuthStore } from '@/common/store/useAuthStore'
 import { UI_URLS } from '@/common/constants'
@@ -19,7 +20,8 @@ import { Button } from '@/common/components/ui/button'
 
 const topNavItems = [
 	{ label: 'Dashboard', href: UI_URLS.ADMIN.BASE, icon: LayoutDashboard },
-	{ label: 'Users', href: UI_URLS.ADMIN.USERS, icon: Users }
+	{ label: 'Users', href: UI_URLS.ADMIN.USERS, icon: Users },
+	{ label: 'Payment details', href: UI_URLS.ADMIN.PAYMENT_DETAILS, icon: CreditCard }
 ]
 
 const catalogueItems = [
