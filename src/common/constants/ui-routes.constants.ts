@@ -19,6 +19,9 @@ export const UI_URLS = {
 		CREATE_PRODUCT: '/admin/products/create',
 		EDIT_PRODUCT: (id: string) => `/admin/products/${id}/edit`,
 		PAYMENT_DETAILS: '/admin/payment-details',
+		PAYMENT_DETAILS_IBAN: '/admin/payment-details/iban',
+		PAYMENT_DETAILS_LIQPAY: '/admin/payment-details/liqpay',
+		PAYMENT_DETAILS_MONOPAY: '/admin/payment-details/monopay',
 		STYLE_GUIDE: '/admin/style-guide'
 	}
 }

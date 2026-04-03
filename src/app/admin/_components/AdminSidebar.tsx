@@ -12,7 +12,9 @@ import {
 	Package,
 	ShoppingBag,
 	ChevronDown,
-	CreditCard
+	CreditCard,
+	Landmark,
+	Wallet
 } from 'lucide-react'
 import { useAuthStore } from '@/common/store/useAuthStore'
 import { UI_URLS } from '@/common/constants'
@@ -20,8 +22,13 @@ import { Button } from '@/common/components/ui/button'
 
 const topNavItems = [
 	{ label: 'Dashboard', href: UI_URLS.ADMIN.BASE, icon: LayoutDashboard },
-	{ label: 'Users', href: UI_URLS.ADMIN.USERS, icon: Users },
-	{ label: 'Payment details', href: UI_URLS.ADMIN.PAYMENT_DETAILS, icon: CreditCard }
+	{ label: 'Users', href: UI_URLS.ADMIN.USERS, icon: Users }
+]
+
+const paymentDetailsItems = [
+	{ label: 'IBAN', href: UI_URLS.ADMIN.PAYMENT_DETAILS_IBAN, icon: Landmark },
+	{ label: 'LiqPay', href: UI_URLS.ADMIN.PAYMENT_DETAILS_LIQPAY, icon: Wallet },
+	{ label: 'MonoPay', href: UI_URLS.ADMIN.PAYMENT_DETAILS_MONOPAY, icon: Wallet }
 ]
 
 const catalogueItems = [
@@ -37,6 +44,11 @@ export const AdminSidebar = () => {
 	const router = useRouter()
 	const user = useAuthStore(state => state.getUser())
 	const logOut = useAuthStore(state => state.logOut)
+
+	const isPaymentDetailsActive = paymentDetailsItems.some(item =>
+		pathname.startsWith(item.href)
+	)
+	const [paymentDetailsOpen, setPaymentDetailsOpen] = useState(isPaymentDetailsActive)
 
 	const isCatalogueActive = catalogueItems.some(item => pathname.startsWith(item.href))
 	const [catalogueOpen, setCatalogueOpen] = useState(isCatalogueActive)
@@ -73,6 +85,34 @@ export const AdminSidebar = () => {
 
 			<nav className='flex-1 px-3 py-4'>
 				{topNavItems.map(({ label, href, icon }) => navLink(href, icon, label))}
+
+				{/* Payment details accordion */}
+				<div className='mb-1'>
+					<button
+						type='button'
+						onClick={() => setPaymentDetailsOpen(o => !o)}
+						className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors ${
+							isPaymentDetailsActive && !paymentDetailsOpen
+								? 'bg-gray-100 font-medium text-gray-900'
+								: 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+						}`}
+					>
+						<CreditCard size={16} />
+						<span className='flex-1 text-left'>Payment details</span>
+						<ChevronDown
+							size={14}
+							className={`transition-transform duration-200 ${paymentDetailsOpen ? 'rotate-180' : ''}`}
+						/>
+					</button>
+
+					{paymentDetailsOpen && (
+						<div className='mt-0.5 ml-4 border-l border-gray-200 pl-3'>
+							{paymentDetailsItems.map(({ label, href, icon }) =>
+								navLink(href, icon, label)
+							)}
+						</div>
+					)}
+				</div>
 
 				{/* Catalogue accordion */}
 				<div className='mb-1'>

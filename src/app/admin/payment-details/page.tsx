@@ -1,5 +1,6 @@
-import { PaymentDetails } from './PaymentDetails'
+import { redirect } from 'next/navigation'
+import { UI_URLS } from '@/common/constants'
 
 export default function PaymentDetailsPage() {
-	return <PaymentDetails />
+	redirect(UI_URLS.ADMIN.PAYMENT_DETAILS_IBAN)
 }
