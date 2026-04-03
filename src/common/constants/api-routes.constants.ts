@@ -49,5 +49,8 @@ export const API_URLS = {
 		BY_ID: (id: string) => `/payment-details/${id}`, // PATCH / DELETE
 		ACTIVATE: (id: string) => `/payment-details/${id}/activate`, // PATCH — set active (deactivates others)
 		ACTIVE: `/payment-details/active` // GET — public active record
+	},
+	NOVA_POST: {
+		SYNC: `/nova-post/sync` // GET — admin SSE stream: cities → warehouses progress, then done | error
 	}
 }
