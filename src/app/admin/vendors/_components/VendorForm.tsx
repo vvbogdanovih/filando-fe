@@ -123,7 +123,7 @@ export const VendorForm = ({ initial, onClose }: VendorFormProps) => {
 						<Label htmlFor='vendor-name'>Назва</Label>
 						<Input
 							id='vendor-name'
-							placeholder='Наприклад: Filando'
+							placeholder='Наприклад: Fillando'
 							{...register('name')}
 							aria-invalid={!!errors.name}
 						/>
@@ -137,7 +137,7 @@ export const VendorForm = ({ initial, onClose }: VendorFormProps) => {
 						<Label htmlFor='vendor-slug'>Slug</Label>
 						<Input
 							id='vendor-slug'
-							placeholder='filando'
+							placeholder='fillando'
 							{...slugField}
 							onChange={e => {
 								slugLockedRef.current = true

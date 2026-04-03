@@ -50,7 +50,12 @@ export const API_URLS = {
 		ACTIVATE: (id: string) => `/payment-details/${id}/activate`, // PATCH — set active (deactivates others)
 		ACTIVE: `/payment-details/active` // GET — public active record
 	},
+	ORDERS: {
+		BASE: `/orders` // POST — create order (guest or authenticated)
+	},
 	NOVA_POST: {
-		SYNC: `/nova-post/sync` // GET — admin SSE stream: cities → warehouses progress, then done | error
+		SYNC: `/nova-post/sync`, // GET — admin SSE stream: cities → warehouses progress, then done | error
+		CITIES: `/nova-post/cities`, // GET ?q=
+		WAREHOUSES: `/nova-post/warehouses` // GET ?cityRef=&type=
 	}
 }

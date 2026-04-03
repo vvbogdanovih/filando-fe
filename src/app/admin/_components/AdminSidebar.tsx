@@ -80,7 +80,7 @@ export const AdminSidebar = () => {
 	return (
 		<aside className='flex w-60 shrink-0 flex-col border-r border-gray-200 bg-white'>
 			<div className='border-b border-gray-200 px-6 py-5'>
-				<span className='text-lg font-semibold text-gray-900'>Filando Admin</span>
+				<span className='text-lg font-semibold text-gray-900'>Fillando Admin</span>
 			</div>
 
 			<nav className='flex-1 px-3 py-4'>

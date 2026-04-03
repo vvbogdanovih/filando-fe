@@ -1,6 +1,8 @@
 export const UI_URLS = {
 	HOME: '/',
 	NOT_FOUND: '/404',
+	CHECKOUT: '/checkout',
+	CHECKOUT_SUCCESS: '/checkout/success',
 	CATALOG: {
 		FILAMENT: '/vytratni-materialy-dlia-3d-druku/filament'
 	},

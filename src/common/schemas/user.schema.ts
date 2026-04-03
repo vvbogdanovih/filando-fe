@@ -9,5 +9,7 @@ export const userSchema = z.object({
 	role: roleSchema,
 	email: z.string(),
 	name: z.string(),
-	picture: z.string().nullable()
+	picture: z.string().nullable(),
+	/** Present when the backend stores a phone on the profile (optional for checkout autofill). */
+	phone: z.string().optional()
 })

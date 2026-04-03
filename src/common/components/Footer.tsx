@@ -15,7 +15,7 @@ export function Footer() {
 						<div className='bg-primary flex h-9 w-9 items-center justify-center rounded-lg'>
 							<Printer className='text-primary-foreground h-5 w-5' />
 						</div>
-						<span className='gradient-text text-lg font-bold'>Filando</span>
+						<span className='gradient-text text-lg font-bold'>Fillando</span>
 					</Link>
 
 					{/* Nav */}
@@ -37,7 +37,7 @@ export function Footer() {
 
 				<div className='border-border mt-8 border-t pt-6'>
 					<p className='text-muted-foreground text-xs'>
-						© {new Date().getFullYear()} Filando. Всі права захищені.
+						© {new Date().getFullYear()} Fillando. Всі права захищені.
 					</p>
 				</div>
 			</div>

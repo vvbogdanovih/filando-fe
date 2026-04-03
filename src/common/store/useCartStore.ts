@@ -52,6 +52,8 @@ interface CartStore {
 	removeGuestItem: (variantId: string) => void
 	setGuestItemQuantity: (variantId: string, quantity: number) => void
 	clearCart: () => Promise<void>
+	/** Clears server cart (auth) or guest cart (local) after a successful order. */
+	clearAfterOrder: () => Promise<void>
 	mergeAndSync: () => Promise<void>
 	resetServerCart: () => void
 	openCart: () => void
@@ -163,6 +165,22 @@ export const useCartStore = create<CartStore>()(
 				applyCartResponse(res, set)
 			},
 
+			clearAfterOrder: async () => {
+				if (useAuthStore.getState().isUserLoggedIn()) {
+					try {
+						const res = await httpService.delete<CartResponse, unknown>(
+							API_URLS.CART.BASE,
+							{ skipErrorToast: true }
+						)
+						applyCartResponse(res, set)
+					} catch {
+						set({ items: [] })
+					}
+				} else {
+					set({ guestItems: [] })
+				}
+			},
+
 			mergeAndSync: async () => {
 				const { guestItems } = get()
 				try {
@@ -183,7 +201,7 @@ export const useCartStore = create<CartStore>()(
 			}
 		}),
 		{
-			name: 'filando-cart',
+			name: 'fillando-cart',
 			partialize: state => ({ guestItems: state.guestItems })
 		}
 	)

@@ -46,7 +46,7 @@ export function Header() {
 						<div className='bg-primary flex h-10 w-10 items-center justify-center rounded-lg'>
 							<Printer className='text-primary-foreground h-6 w-6' />
 						</div>
-						<span className='gradient-text text-xl font-bold'>Filando</span>
+						<span className='gradient-text text-xl font-bold'>Fillando</span>
 					</Link>
 
 					<nav className='hidden items-center gap-6 md:flex'>

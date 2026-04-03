@@ -227,12 +227,14 @@ export function CartSidebar() {
 									{total.toLocaleString('uk-UA')} ₴
 								</span>
 							</div>
-							<button
-								disabled
-								className='bg-primary/30 text-primary-foreground/50 w-full cursor-not-allowed rounded-xl px-4 py-3 text-sm font-semibold'
-							>
-								Перейти до оформлення
-							</button>
+							<Dialog.Close asChild>
+								<Link
+									href={UI_URLS.CHECKOUT}
+									className='bg-primary text-primary-foreground hover:bg-primary/90 flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition-colors'
+								>
+									Оформити замовлення
+								</Link>
+							</Dialog.Close>
 						</div>
 					)}
 				</Dialog.Content>
