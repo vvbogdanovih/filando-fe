@@ -56,6 +56,6 @@ export const API_URLS = {
 	NOVA_POST: {
 		SYNC: `/nova-post/sync`, // GET — admin SSE stream: cities → warehouses progress, then done | error
 		CITIES: `/nova-post/cities`, // GET ?q=
-		WAREHOUSES: `/nova-post/warehouses` // GET ?cityRef=&type=
+		WAREHOUSES: `/nova-post/warehouses` // GET ?cityRef=&type=&q=
 	}
 }

@@ -39,10 +39,14 @@ export async function fetchNovaPostCities(q: string): Promise<NovaCity[]> {
 
 export async function fetchNovaPostWarehouses(
 	cityRef: string,
-	type: 'PARCEL_LOCKER' | 'POST' | 'CARGO'
+	type: 'PARCEL_LOCKER' | 'POST' | 'CARGO',
+	q?: string
 ): Promise<NovaWarehouse[]> {
+	const trimmed = q?.trim()
+	const params: Record<string, string> = { cityRef, type }
+	if (trimmed) params.q = trimmed
 	return httpService.get<NovaWarehouse[], unknown>(API_URLS.NOVA_POST.WAREHOUSES, {
-		params: { cityRef, type },
+		params,
 		schema: novaWarehouseListSchema,
 		skipErrorToast: true
 	})

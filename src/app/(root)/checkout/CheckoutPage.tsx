@@ -75,13 +75,25 @@ export function CheckoutPage() {
 	const [debouncedCityQuery, setDebouncedCityQuery] = useState('')
 	const [cityOpen, setCityOpen] = useState(false)
 	const [warehouseOpen, setWarehouseOpen] = useState(false)
+	const [warehouseSearchInput, setWarehouseSearchInput] = useState('')
+	const [debouncedWarehouseQuery, setDebouncedWarehouseQuery] = useState('')
 	const cityWrapRef = useRef<HTMLDivElement>(null)
 	const warehouseWrapRef = useRef<HTMLDivElement>(null)
+	const warehouseInputRef = useRef<HTMLInputElement>(null)
+	const prevCityRefForWarehouseFocus = useRef('')
 
 	useEffect(() => {
 		const t = setTimeout(() => setDebouncedCityQuery(citySearchInput.trim()), DEBOUNCE_MS)
 		return () => clearTimeout(t)
 	}, [citySearchInput])
+
+	useEffect(() => {
+		const t = setTimeout(
+			() => setDebouncedWarehouseQuery(warehouseSearchInput.trim()),
+			DEBOUNCE_MS
+		)
+		return () => clearTimeout(t)
+	}, [warehouseSearchInput])
 
 	useEffect(() => {
 		if (!isLoadingCart && displayItems.length === 0) {
@@ -113,7 +125,6 @@ export function CheckoutPage() {
 	const deliveryMethod = watch('delivery_method')
 	const cityRef = watch('city_ref')
 	const warehouseType = watch('warehouse_type')
-	const warehouseDescription = watch('warehouse_description')
 
 	const prevDelivery = useRef(deliveryMethod)
 	useEffect(() => {
@@ -127,6 +138,8 @@ export function CheckoutPage() {
 			setCitySearchInput('')
 			setCityOpen(false)
 			setWarehouseOpen(false)
+			setWarehouseSearchInput('')
+			setDebouncedWarehouseQuery('')
 		}
 		if (deliveryMethod !== 'COURIER') {
 			setValue('courier_city_name', '')
@@ -143,7 +156,23 @@ export function CheckoutPage() {
 		setValue('warehouse_number', undefined)
 		setValue('warehouse_description', '')
 		setWarehouseOpen(false)
+		setWarehouseSearchInput('')
+		setDebouncedWarehouseQuery('')
 	}, [warehouseType, setValue])
+
+	useEffect(() => {
+		setWarehouseSearchInput('')
+		setDebouncedWarehouseQuery('')
+	}, [cityRef])
+
+	useEffect(() => {
+		const hadCity = Boolean(prevCityRefForWarehouseFocus.current)
+		if (deliveryMethod === 'NOVA_POST' && cityRef && !hadCity) {
+			warehouseInputRef.current?.focus()
+			setWarehouseOpen(true)
+		}
+		prevCityRefForWarehouseFocus.current = cityRef ?? ''
+	}, [cityRef, deliveryMethod])
 
 	useEffect(() => {
 		if (!user) return
@@ -161,8 +190,9 @@ export function CheckoutPage() {
 	})
 
 	const { data: warehouses = [], isFetching: warehousesLoading } = useQuery({
-		queryKey: ['checkout', 'nova-warehouses', cityRef, warehouseType],
-		queryFn: () => fetchNovaPostWarehouses(cityRef!, warehouseType!),
+		queryKey: ['checkout', 'nova-warehouses', cityRef, warehouseType, debouncedWarehouseQuery],
+		queryFn: () =>
+			fetchNovaPostWarehouses(cityRef!, warehouseType!, debouncedWarehouseQuery || undefined),
 		enabled:
 			deliveryMethod === 'NOVA_POST' && Boolean(cityRef) && Boolean(warehouseType)
 	})
@@ -407,23 +437,40 @@ export function CheckoutPage() {
 								</div>
 
 								<div className='relative space-y-2' ref={warehouseWrapRef}>
-									<Label>Відділення</Label>
-									<button
-										type='button'
-										className={cn(
-											'border-input bg-background flex min-h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-left text-sm',
-											!cityRef && 'text-muted-foreground cursor-not-allowed opacity-60'
-										)}
-										disabled={!cityRef}
-										onClick={() => cityRef && setWarehouseOpen(o => !o)}
-									>
-										<span className='line-clamp-2'>
-											{!cityRef
-												? 'Спочатку оберіть місто'
-												: warehouseDescription || 'Оберіть відділення'}
-										</span>
-										<Building2 className='text-muted-foreground h-4 w-4 shrink-0' />
-									</button>
+									<Label htmlFor='checkout-np-warehouse'>Відділення</Label>
+									<div className='relative'>
+										<Building2 className='text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2' />
+										<Input
+											ref={warehouseInputRef}
+											id='checkout-np-warehouse'
+											name='np-warehouse-query'
+											className='pl-9'
+											placeholder={
+												cityRef
+													? 'Номер, вулиця або оберіть зі списку…'
+													: 'Спочатку оберіть місто'
+											}
+											autoComplete='off'
+											autoCorrect='off'
+											autoCapitalize='off'
+											spellCheck={false}
+											disabled={!cityRef}
+											value={warehouseSearchInput}
+											onChange={e => {
+												const v = e.target.value
+												setWarehouseSearchInput(v)
+												setWarehouseOpen(true)
+												if (!v.trim()) {
+													setValue('warehouse_number', undefined)
+													setValue('warehouse_description', '')
+												}
+											}}
+											onFocus={() => cityRef && setWarehouseOpen(true)}
+											aria-invalid={
+												!!errors.warehouse_number || !!errors.warehouse_description
+											}
+										/>
+									</div>
 									{(errors.warehouse_number || errors.warehouse_description) && (
 										<p className='text-destructive text-sm'>
 											{errors.warehouse_number?.message ||
@@ -448,6 +495,7 @@ export function CheckoutPage() {
 																onClick={() => {
 																	setValue('warehouse_number', w.number)
 																	setValue('warehouse_description', w.description)
+																	setWarehouseSearchInput(w.description)
 																	setWarehouseOpen(false)
 																}}
 															>
